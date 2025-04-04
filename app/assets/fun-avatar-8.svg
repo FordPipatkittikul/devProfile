@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background -->
+  <circle cx="100" cy="100" r="90" fill="#d7ccc8"/>
+  
+  <!-- Face -->
+  <circle cx="100" cy="110" r="40" fill="#ffccbc"/>
+  
+  <!-- Beard -->
+  <path d="M70 110 C 70 150, 130 150, 130 110" fill="#8d6e63"/>
+  <path d="M85 150 L75 180" stroke="#8d6e63" stroke-width="10" fill="none"/>
+  <path d="M115 150 L125 180" stroke="#8d6e63" stroke-width="10" fill="none"/>
+  <path d="M100 150 L100 175" stroke="#8d6e63" stroke-width="10" fill="none"/>
+  
+  <!-- Eyes -->
+  <ellipse cx="85" cy="100" rx="5" ry="3" fill="#3e2723"/>
+  <ellipse cx="115" cy="100" rx="5" ry="3" fill="#3e2723"/>
+  
+  <!-- Eyebrows -->
+  <path d="M75 90 L95 95" stroke="#8d6e63" stroke-width="3" fill="none"/>
+  <path d="M125 90 L105 95" stroke="#8d6e63" stroke-width="3" fill="none"/>
+  
+  <!-- Nose -->
+  <path d="M100 105 L95 115 L105 115 Z" fill="#ffab91"/>
+  
+  <!-- Mouth -->
+  <path d="M90 125 L110 125" stroke="#3e2723" stroke-width="2" fill="none"/>
+  
+  <!-- Helmet -->
+  <path d="M60 90 Q100 70 140 90" fill="#78909c"/>
+  <path d="M60 90 L60 60 Q100 40 140 60 L140 90" fill="#78909c"/>
+  
+  <!-- Horns -->
+  <path d="M70 60 C 55 40, 40 40, 30 30" stroke="#8d6e63" stroke-width="8" fill="none"/>
+  <path d="M130 60 C 145 40, 160 40, 170 30" stroke="#8d6e63" stroke-width="8" fill="none"/>
+</svg>

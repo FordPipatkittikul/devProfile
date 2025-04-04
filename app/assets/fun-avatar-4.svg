@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background -->
+  <circle cx="100" cy="100" r="90" fill="#e8f5e9"/>
+  
+  <!-- Fox Body -->
+  <ellipse cx="100" cy="110" rx="60" ry="50" fill="#ff7043"/>
+  
+  <!-- Fox Head -->
+  <circle cx="100" cy="70" r="40" fill="#ff7043"/>
+  
+  <!-- Ears -->
+  <polygon points="70,50 60,20 85,40" fill="#ff7043"/>
+  <polygon points="130,50 140,20 115,40" fill="#ff7043"/>
+  <polygon points="70,50 67,28 82,40" fill="#fff3e0"/>
+  <polygon points="130,50 133,28 118,40" fill="#fff3e0"/>
+  
+  <!-- Face -->
+  <ellipse cx="100" cy="80" rx="30" ry="25" fill="#fff3e0"/>
+  
+  <!-- Eyes -->
+  <ellipse cx="85" cy="70" rx="5" ry="7" fill="white"/>
+  <ellipse cx="115" cy="70" rx="5" ry="7" fill="white"/>
+  <circle cx="85" cy="70" r="3" fill="#5d4037"/>
+  <circle cx="115" cy="70" r="3" fill="#5d4037"/>
+  
+  <!-- Nose -->
+  <ellipse cx="100" cy="85" rx="7" ry="5" fill="#5d4037"/>
+  
+  <!-- Mouth -->
+  <path d="M93 95 Q100 100 107 95" stroke="#5d4037" stroke-width="2" fill="none"/>
+  
+  <!-- Whiskers -->
+  <line x1="90" y1="88" x2="70" y2="85" stroke="#5d4037" stroke-width="1.5"/>
+  <line x1="90" y1="92" x2="70" y2="95" stroke="#5d4037" stroke-width="1.5"/>
+  <line x1="110" y1="88" x2="130" y2="85" stroke="#5d4037" stroke-width="1.5"/>
+  <line x1="110" y1="92" x2="130" y2="95" stroke="#5d4037" stroke-width="1.5"/>
+  
+  <!-- Tail -->
+  <path d="M160 100 Q175 80 150 70" fill="#ff7043" transform="rotate(10, 150, 90)"/>
+  <path d="M160 100 Q175 80 155 75" fill="#fff3e0" transform="rotate(10, 150, 90)" opacity="0.7"/>
+</svg>

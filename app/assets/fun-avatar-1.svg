@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background -->
+  <circle cx="100" cy="100" r="90" fill="#e0f7fa"/>
+  
+  <!-- Robot Body -->
+  <rect x="60" y="70" width="80" height="90" rx="10" fill="#90caf9"/>
+  
+  <!-- Head -->
+  <rect x="70" y="30" width="60" height="50" rx="10" fill="#42a5f5"/>
+  
+  <!-- Eyes -->
+  <circle cx="85" cy="50" r="8" fill="white"/>
+  <circle cx="115" cy="50" r="8" fill="white"/>
+  <circle cx="85" cy="50" r="4" fill="#1a237e"/>
+  <circle cx="115" cy="50" r="4" fill="#1a237e"/>
+  
+  <!-- Mouth -->
+  <rect x="80" y="65" width="40" height="5" rx="2" fill="#1a237e"/>
+  
+  <!-- Antenna -->
+  <line x1="100" y1="30" x2="100" y2="15" stroke="#1a237e" stroke-width="3"/>
+  <circle cx="100" cy="12" r="5" fill="#f44336"/>
+  
+  <!-- Control Panel -->
+  <rect x="75" y="90" width="50" height="20" rx="5" fill="#1a237e"/>
+  <circle cx="85" cy="100" r="5" fill="#f44336"/>
+  <circle cx="100" cy="100" r="5" fill="#ffeb3b"/>
+  <circle cx="115" cy="100" r="5" fill="#4caf50"/>
+  
+  <!-- Arms -->
+  <rect x="50" y="85" width="10" height="40" rx="5" fill="#42a5f5"/>
+  <rect x="140" y="85" width="10" height="40" rx="5" fill="#42a5f5"/>
+  
+  <!-- Legs -->
+  <rect x="75" y="160" width="15" height="20" rx="5" fill="#42a5f5"/>
+  <rect x="110" y="160" width="15" height="20" rx="5" fill="#42a5f5"/>
+</svg>

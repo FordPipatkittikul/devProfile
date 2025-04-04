@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background -->
+  <circle cx="100" cy="100" r="90" fill="#e8f5e9"/>
+  
+  <!-- Alien Head -->
+  <path d="M70 140 C 30 100, 30 60, 70 40 L 130 40 C 170 60, 170 100, 130 140 Z" fill="#4caf50"/>
+  
+  <!-- Eyes -->
+  <ellipse cx="80" cy="70" rx="15" ry="20" fill="black"/>
+  <ellipse cx="120" cy="70" rx="15" ry="20" fill="black"/>
+  <ellipse cx="80" cy="70" rx="5" ry="7" fill="white"/>
+  <ellipse cx="120" cy="70" rx="5" ry="7" fill="white"/>
+  
+  <!-- Mouth -->
+  <path d="M85 110 Q100 120 115 110" stroke="black" stroke-width="3" fill="none"/>
+  
+  <!-- Antenna -->
+  <line x1="90" y1="40" x2="80" y2="20" stroke="#4caf50" stroke-width="4"/>
+  <circle cx="80" cy="15" r="6" fill="#ffeb3b"/>
+  <line x1="110" y1="40" x2="120" y2="20" stroke="#4caf50" stroke-width="4"/>
+  <circle cx="120" cy="15" r="6" fill="#ffeb3b"/>
+  
+  <!-- Spots -->
+  <circle cx="70" cy="90" r="5" fill="#388e3c"/>
+  <circle cx="90" cy="130" r="6" fill="#388e3c"/>
+  <circle cx="130" cy="90" r="5" fill="#388e3c"/>
+  <circle cx="110" cy="130" r="6" fill="#388e3c"/>
+  <circle cx="60" cy="110" r="4" fill="#388e3c"/>
+  <circle cx="140" cy="110" r="4" fill="#388e3c"/>
+</svg>

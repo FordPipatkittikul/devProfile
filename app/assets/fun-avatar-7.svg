@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background -->
+  <circle cx="100" cy="100" r="90" fill="#cfd8dc"/>
+  
+  <!-- Ninja Head -->
+  <circle cx="100" cy="100" r="50" fill="#455a64"/>
+  
+  <!-- Ninja Mask -->
+  <rect x="50" y="85" width="100" height="30" fill="#263238"/>
+  
+  <!-- Eyes -->
+  <ellipse cx="80" cy="100" rx="10" ry="5" fill="white"/>
+  <ellipse cx="120" cy="100" rx="10" ry="5" fill="white"/>
+  <ellipse cx="80" cy="100" rx="5" ry="3" fill="#b71c1c"/>
+  <ellipse cx="120" cy="100" rx="5" ry="3" fill="#b71c1c"/>
+  
+  <!-- Headband -->
+  <path d="M50 75 Q100 65 150 75" stroke="#b71c1c" stroke-width="10" fill="none"/>
+  <path d="M145 75 L170 50" stroke="#b71c1c" stroke-width="10" fill="none"/>
+  
+  <!-- Shoulder -->
+  <path d="M50 150 Q100 160 150 150" stroke="#263238" stroke-width="15" fill="none"/>
+  
+  <!-- Throwing Star -->
+  <path d="M30 40 L50 50 L40 70 L20 60 Z" fill="#78909c" transform="rotate(15, 35, 55)"/>
+  <circle cx="35" cy="55" r="5" fill="#455a64" transform="rotate(15, 35, 55)"/>
+  
+  <!-- Small Sword -->
+  <line x1="160" y1="30" x2="170" y2="20" stroke="#78909c" stroke-width="3"/>
+  <line x1="160" y1="30" x2="140" y2="50" stroke="#b0bec5" stroke-width="5"/>
+</svg>

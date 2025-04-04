@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background -->
+  <circle cx="100" cy="100" r="90" fill="#bbdefb"/>
+  
+  <!-- Cape -->
+  <path d="M50 90 C 30 140, 30 180, 60 180 L140 180 C 170 180, 170 140, 150 90" fill="#f44336"/>
+  
+  <!-- Body -->
+  <path d="M70 90 L70 150 L130 150 L130 90" fill="#0d47a1"/>
+  
+  <!-- Belt -->
+  <rect x="70" y="120" width="60" height="10" fill="#ffc107"/>
+  <circle cx="100" cy="125" r="5" fill="#b71c1c"/>
+  
+  <!-- Chest Emblem -->
+  <polygon points="100,100 110,115 90,115" fill="#ffc107"/>
+  <text x="96" y="113" font-family="Arial" font-size="15" font-weight="bold" fill="#b71c1c">S</text>
+  
+  <!-- Head -->
+  <circle cx="100" cy="70" r="30" fill="#ffccbc"/>
+  
+  <!-- Mask -->
+  <path d="M70 70 Q100 60 130 70" stroke="#0d47a1" stroke-width="15" fill="none"/>
+  
+  <!-- Eyes -->
+  <ellipse cx="85" cy="70" rx="5" ry="3" fill="white"/>
+  <ellipse cx="115" cy="70" rx="5" ry="3" fill="white"/>
+  
+  <!-- Mouth -->
+  <path d="M90 85 Q100 95 110 85" stroke="#3e2723" stroke-width="2" fill="none"/>
+  
+  <!-- Arms -->
+  <rect x="50" y="90" width="20" height="60" fill="#0d47a1"/>
+  <rect x="130" y="90" width="20" height="60" fill="#0d47a1"/>
+  <circle cx="60" cy="150" r="10" fill="#ffccbc"/>
+  <circle cx="140" cy="150" r="10" fill="#ffccbc"/>
+</svg>

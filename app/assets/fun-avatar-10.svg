@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background -->
+  <circle cx="100" cy="100" r="90" fill="#e1bee7"/>
+  
+  <!-- Monster Body -->
+  <ellipse cx="100" cy="120" rx="60" ry="45" fill="#7b1fa2"/>
+  
+  <!-- Spots on Body -->
+  <circle cx="70" cy="100" r="8" fill="#9c27b0"/>
+  <circle cx="130" cy="100" r="8" fill="#9c27b0"/>
+  <circle cx="85" cy="140" r="10" fill="#9c27b0"/>
+  <circle cx="115" cy="140" r="10" fill="#9c27b0"/>
+  
+  <!-- Head -->
+  <ellipse cx="100" cy="70" rx="40" ry="35" fill="#7b1fa2"/>
+  
+  <!-- Eyes (3 of them) -->
+  <circle cx="80" cy="60" r="10" fill="#e1bee7"/>
+  <circle cx="80" cy="60" r="5" fill="#4a148c"/>
+  <circle cx="120" cy="60" r="10" fill="#e1bee7"/>
+  <circle cx="120" cy="60" r="5" fill="#4a148c"/>
+  <circle cx="100" cy="85" r="10" fill="#e1bee7"/>
+  <circle cx="100" cy="85" r="5" fill="#4a148c"/>
+  
+  <!-- Horns -->
+  <path d="M70 45 L60 25" stroke="#4a148c" stroke-width="8" fill="none"/>
+  <path d="M130 45 L140 25" stroke="#4a148c" stroke-width="8" fill="none"/>
+  <path d="M85 40 L80 15" stroke="#4a148c" stroke-width="6" fill="none"/>
+  <path d="M115 40 L120 15" stroke="#4a148c" stroke-width="6" fill="none"/>
+  
+  <!-- Mouth -->
+  <path d="M80 110 Q100 125 120 110" fill="#f3e5f5"/>
+  
+  <!-- Teeth -->
+  <path d="M85 110 L85 116" stroke="#f3e5f5" stroke-width="3"/>
+  <path d="M95 110 L95 118" stroke="#f3e5f5" stroke-width="3"/>
+  <path d="M105 110 L105 118" stroke="#f3e5f5" stroke-width="3"/>
+  <path d="M115 110 L115 116" stroke="#f3e5f5" stroke-width="3"/>
+  
+  <!-- Arms -->
+  <path d="M45 120 C 20 100, 20 140, 40 150" fill="#7b1fa2"/>
+  <path d="M155 120 C 180 100, 180 140, 160 150" fill="#7b1fa2"/>
+</svg>
