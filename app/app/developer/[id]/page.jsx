@@ -6,6 +6,7 @@ import Image from "next/image";
 import { assets } from "@/assets/assets";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ContactUs from "@/components/ContactUs";
 
 const Developer = () => {
 
@@ -47,29 +48,26 @@ const Developer = () => {
                 {avatar && <Image src={avatar} alt="Developer" width={100} height={100} className="dev-avatar" />}
             </div>
             <div className="container">
-                <h2 className="text-center mt-16 text-2xl font-bold">Hi, my name is Lorem Ipsum</h2>
-                <h2 className="text-center mt-4 text-2xl font-bold">I'm a stupid developer</h2>
-                <h2 className="text-center mt-4 text-2xl font-bold">Prefer location : Bangkok, Remote</h2>
-                <h2 className="text-center mt-4 text-2xl font-bold">5 years of experience</h2>
-                <div className="sm:grid lg:flex lg:flex-row justify-between">
-                    <h2 className="mt-6 text-2xl">Email: ghjkkhj@gmail.com</h2>
-                    <h2 className="mt-6 text-2xl">Phone: 055-222-3333</h2>
-                    <h2 className="mt-6 text-2xl">Github: ghjkkhj</h2>
-                    <h2 className="mt-6 text-2xl">Line: 055-222-3333</h2>
-                </div>
-                
+                <h2 className="text-center mt-16 text-4xl font-bold">Hi, my name is Lorem Ipsum</h2>
+
+                <ContactUs/>
             </div>
             
-
-            <div>
+            
+            <div className="border-t-2 mt-16 border-gray-400">
                 <h2 className="text-center mt-16 text-4xl font-bold">ABOUT ME</h2>
                 <div className="container">
                     <h1 className="mt-2 text-2xl font-bold">Developer Profile</h1>
+                    <p className="mt-2">Career Interest: </p>
+                    <p className="mt-2">Prefer location : Bangkok, Remote</p>
+                    <p className="mt-2">languages : Thai, English</p>
+                    <p className="mt-2">Total years of experience: 5 </p>
+                    <h1 className="mt-2 text-2xl font-bold">About myself</h1>
                     <p className="mt-2">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                 </div>
             </div>
 
-            <div>
+            <div className="border-t-2 mt-16 border-gray-400">
                 <h2 className="text-center mt-16 text-4xl font-bold">EDUCATION</h2>
                 <div className="container">
                     <h1 className="text-amber-300 text-2xl font-bold">Chulalongkorn university</h1>
@@ -85,7 +83,7 @@ const Developer = () => {
                 </div>
             </div>
 
-            <div>
+            <div className="border-t-2 mt-16 border-gray-400">
                 <h2 className="text-center mt-16 text-4xl font-bold">PROFESSIONAL EXPERIENCE</h2>
                 <div className="container">
                     <h1 className="text-amber-300 text-2xl font-bold">MEOW company</h1>
@@ -98,7 +96,7 @@ const Developer = () => {
                 </div>
             </div>
 
-            <div>
+            <div className="border-t-2 mt-16 border-gray-400">
                 <h2 className="text-center mt-16 text-4xl font-bold">PROJECTS</h2>
                 <div className="container">
                     <h1 className="text-amber-300 text-2xl font-bold">MEOW Poject</h1>
@@ -106,7 +104,7 @@ const Developer = () => {
                 </div>
             </div>
 
-            <div className="mb-16">
+            <div className="mb-16 border-t-2 mt-16 border-gray-400">
                 <h2 className="text-center mt-16 text-4xl font-bold">SKILLS</h2>
                 <div className="container">
 

@@ -2,20 +2,59 @@
 
 import React from "react";
 import Link from "next/link";
+import axios from "axios";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
-
+import { useAppContext } from "@/context/AppContext";
 
 const SignUp = () => {
 
+    const { router } = useAppContext();
+    const [isLoading,setIsLoading] = useState(false);
+
+    const httpSignUp = async (event) => {
+        event.preventDefault();
+        setIsLoading(true);
+        const formData = new FormData(event.target);
+        const firstName = formData.get("firstName");
+        const lastName = formData.get("lastName");
+        const email = formData.get("email");
+        const password = formData.get("password");
+        try{
+            const response = await axios.post("/api/auth/signup", {
+                firstName,
+                lastName,
+                email,
+                password
+            })
+            
+            if(response.data.success){
+                router.push("/signin");
+                toast.success(response.data.message);
+            }
+
+        }catch (error) {
+            console.log("Error in signup:", error);
+            if (error.response) {
+                if (error.response.status === 409 || error.response.status === 500) {
+                    toast.error(error.response.data.message); // User already exists
+                } 
+            }
+        }finally{
+            setIsLoading(false);
+        }
+    }
+
     return (
         
-        <div className="mt-16 container">
+        <div className="my-16 container">
             <div className="logon">
                 <div className="logon-card">
                     <h1 className="feature-title text-3xl"> Create your account today</h1>
                     <p>Already have an account? <Link href="/signin" className="text-blue-500">Sign in</Link> </p>
 
-                    <form>
+                    <form onSubmit={httpSignUp}>
 
                         <div>
                             <label className="mt-6 flex text-sm font-medium text-gray-700">
@@ -23,7 +62,6 @@ const SignUp = () => {
                             </label>
                             <div className="mt-1">
                                 <input
-                                    id="firstName"
                                     name="firstName"
                                     type="text"
                                     required
@@ -39,8 +77,7 @@ const SignUp = () => {
                             </label>
                             <div className="mt-1">
                                 <input
-                                    id="lirstName"
-                                    name="lirstName"
+                                    name="lastName"
                                     type="text"
                                     required
                                     className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -55,7 +92,6 @@ const SignUp = () => {
                             </label>
                             <div className="mt-1">
                                 <input
-                                    id="email"
                                     name="email"
                                     type="text"
                                     required
@@ -71,7 +107,6 @@ const SignUp = () => {
                             </label>
                             <div className="mt-1">
                                 <input
-                                    id="password"
                                     name="password"
                                     type="text"
                                     required
@@ -83,7 +118,7 @@ const SignUp = () => {
 
                         <div>
                             <button
-                                type="submit"
+                                disabled={isLoading}
                                 className="btn mt-6"
                                 >
                                 Sign up 
