@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
 
+import connectDB from '@/config/db';
+
 const userInfoSchema = new mongoose.Schema({
-    careerInterest: { type: String },
-    locations: [{ type: String }],
+    phoneNumber: { type: String },
+    careerInterest: [{ type: String }],
+    location: { type: String },
     yearsOfExperience: { type: Number },
     about: { type: String },
     languages: [{ type: String }],
@@ -10,4 +13,18 @@ const userInfoSchema = new mongoose.Schema({
 }, { collection: "userInfo" });
 
 export const UserInfo = mongoose.models.userInfo || mongoose.model('userInfo', userInfoSchema);
+
+export async function createPersonalDetail(phoneNumber, location, yearsOfExperience, about, id) {
+    await connectDB();
+    const userInfo = new UserInfo({
+        phoneNumber,
+        careerInterest: [],
+        location,
+        yearsOfExperience,
+        about,
+        languages: [],
+        userId:id,
+    });
+    return userInfo;
+}
 

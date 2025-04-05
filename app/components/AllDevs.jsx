@@ -1,10 +1,9 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 
 import Devcard from "./Devcard";
-import { assets } from "@/assets/assets";
+
 
 const AllDevs = () => {
 
@@ -14,13 +13,15 @@ const AllDevs = () => {
     const devs = [
         {
             id: "xasddsa",
-            name: "Sarah Johnson",
+            firstName: "Sarah",
+            lastName: "Doe",
             title: "Mobile Developer",
             tags: ["React Native", "Flutter", "iOS"],
         },
         {
             id: "ghjkkhj",
-            name: "John Doe",
+            firstName: "John",
+            lastName: "Doe",
             title: "Web Developer",
             tags: ["React", "Node.js", "Express"],
         },

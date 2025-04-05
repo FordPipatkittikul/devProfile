@@ -9,7 +9,7 @@ import { assets } from "@/assets/assets";
 
 const Devcard = ({dev}) => {
     
-    const { router } = useAppContext();
+    const { router,currentUser } = useAppContext();
     const avatars = [assets.avatar1, assets.avatar2, assets.avatar3, assets.avatar4, assets.avatar5, assets.avatar6, assets.avatar7, assets.avatar8, assets.avatar9, assets.avatar10];
 
     const [avatar, setAvatar] = useState(null);

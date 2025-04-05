@@ -20,7 +20,7 @@ const Navbar = () => {
         setIsOpen(false);
     };
 
-    const httpLogout = async (event) => {
+    const httpLogout = async () => {
         setIsLoading(true);
         try{
             const response = await axios.post("/api/auth/signout");
@@ -34,7 +34,7 @@ const Navbar = () => {
         } finally{
             setIsLoading(false)
         }
-      }
+    }
 
     return (
         <div className="relative">
@@ -51,9 +51,6 @@ const Navbar = () => {
                     </Link>
                     <Link href="/developers" className="hover:text-gray-900 transition">
                         Developers
-                    </Link>
-                    <Link href="/" className="hover:text-gray-900 transition">
-                        My Profile
                     </Link>
                 </div>
 
@@ -85,8 +82,11 @@ const Navbar = () => {
 
                 {/* User Avatar/Menu - Visible on desktop */}
                 {currentUser && (
-                    <div className="hidden md:flex items-end">
-                        <Link onClick={httpLogout} href="/" className="btn btn-outline">
+                    <div className="hidden md:flex items-end gap-4 lg:gap-8">
+                        <Link href={`/profile`} className="btn btn-outline">
+                            My Profile
+                        </Link>
+                        <Link onClick={httpLogout} href="/" className="btn">
                             Sign Out
                         </Link>
                     </div>
@@ -123,7 +123,7 @@ const Navbar = () => {
                             <>
                                 <li>
                                     <Link 
-                                        href="/" 
+                                        href={`/profile`} 
                                         className="block py-2 text-lg font-medium hover:text-[var(--primary)]"
                                         onClick={closeMenu}
                                     >

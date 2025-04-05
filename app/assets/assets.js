@@ -8,7 +8,6 @@ import avatar7 from "./fun-avatar-7.svg";
 import avatar8 from "./fun-avatar-8.svg";
 import avatar9 from "./fun-avatar-9.svg";
 import avatar10 from "./fun-avatar-10.svg";
-import menu from "./menu_icon.svg";
 
 export const assets = {
     avatar1,
@@ -21,5 +20,4 @@ export const assets = {
     avatar8,
     avatar9,
     avatar10,
-    menu,
 };

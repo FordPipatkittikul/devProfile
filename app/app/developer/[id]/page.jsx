@@ -10,29 +10,7 @@ import ContactUs from "@/components/ContactUs";
 
 const Developer = () => {
 
-    // Sample data for developers
-    const devs = [
-        {
-            id: "xasddsa",
-            name: "Sarah Johnson",
-            title: "Mobile Developer",
-            tags: ["React Native", "Flutter", "iOS"],
-            email: "xasddsa@gmail.com",
-            phone: "055-555-4352", 
-            github: "xasddsa"
-        },
-        {
-            id: "ghjkkhj",
-            name: "John Doe",
-            title: "Web Developer",
-            tags: ["React", "Node.js", "Express"],
-            email: "ghjkkhj@gmail.com",
-            phone: "055-222-3333", 
-            github: "ghjkkhj"
-        },
-        
-    ];
-
+    
     const avatars = [assets.avatar1, assets.avatar2, assets.avatar3, assets.avatar4, assets.avatar5, assets.avatar6, assets.avatar7, assets.avatar8, assets.avatar9, assets.avatar10];
     const [avatar, setAvatar] = useState(null);
 
