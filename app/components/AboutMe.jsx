@@ -2,10 +2,13 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import axios from "axios";
+
 import { useAppContext } from "@/context/AppContext";
 
 const AboutMe = () => {
     const { currentUser, updateUser, currentUserInfo } = useAppContext();
+    const [isLoading,setIsLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [formData, setFormData] = useState({
         firstName: currentUser?.firstName || "",
@@ -45,13 +48,45 @@ const AboutMe = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
-        // e.preventDefault();
-        // // Assuming you have an updateUser function in your context
-        // if (typeof updateUser === 'function') {
-        //     updateUser(formData);
-        // }
-        closeMenu();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        const personalDetail = new FormData(e.target)
+        const firstName = personalDetail.get("firstName")
+        const lastName = personalDetail.get("lastName")
+        const email = personalDetail.get("email")
+        const phoneNumber = personalDetail.get("phoneNumber")
+        const location = personalDetail.get("location")
+        const yearsOfExperience = personalDetail.get("yearsOfExperience")
+        const about = personalDetail.get("about")
+
+        try{
+            const res = await axios.post(`/api/profile/info/${currentUser._id}`,{
+                firstName,
+                lastName,
+                email,
+                phoneNumber,
+                location,
+                yearsOfExperience,
+                about
+            })
+            if(res.data.success){
+                updateUser(res.data.userWithoutPassword)
+                toast.success("Update personalDetail successfully");
+            }else {
+                toast.error("cannot edit PersonalDetail")
+            }
+
+        }catch(error) {
+            console.log("Error in Edit Personal Details:", error);
+            if (error.response) {
+                if (error.response.status === 401 || error.response.status === 500) {
+                    toast.error(error.response.data.message); // User does not exists
+                } 
+            }
+        }finally{
+            setIsLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -235,8 +270,8 @@ const AboutMe = () => {
                             <button
                                 type="button"
                                 onClick={ () => {
-                                    closeMenu()
                                     clearFormData()
+                                    closeMenu()
                                     }
                                 }
                                 className="cursor-pointer btn btn-outline"
@@ -244,7 +279,7 @@ const AboutMe = () => {
                                 Cancel
                             </button>
                             <button
-                                type="submit"
+                                disabled={isLoading}
                                 onClick={ () => {
                                     closeMenu()
                                     }

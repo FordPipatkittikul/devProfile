@@ -20,6 +20,8 @@ export async function POST(request) {
             return NextResponse.json({ success: false, message: "Invalid Credential" }, { status: 401 });
         }
 
+        const {password, ...userWithoutPassword} = updatedUser._doc
+
         const userInfoExist = await findUserInfo(id);
         if(!userInfoExist){
             const newPersonalDetail = await createPersonalDetail(
@@ -30,19 +32,19 @@ export async function POST(request) {
                 id
             );
             await newPersonalDetail.save();
-            return NextResponse.json({ success: true, message: "PersonalDetail created successfully" }, { status: 201 });
+            return NextResponse.json({ success: true, userWithoutPassword }, { status: 201 });
         }else{
             const updatedUserInfo = await UserInfo.updateOne(
                 {userId:id},
                 { phoneNumber, location, yearsOfExperience, about }
             )
 
-            return NextResponse.json({ success: true, message: "PersonalDetail update successfully" }, { status: 200 });
+            return NextResponse.json({ success: true, userWithoutPassword }, { status: 200 });
         }
 
     }catch(error){
         console.log("Error in POST:", error);
-        return NextResponse.json({success: false, message: "Something went wrong!"});
+        return NextResponse.json({success: false, message: "Something went wrong!"}, { status: 500 });
     }
 
 }
