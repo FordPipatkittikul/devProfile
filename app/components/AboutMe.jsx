@@ -5,18 +5,16 @@ import Link from "next/link";
 import { useAppContext } from "@/context/AppContext";
 
 const AboutMe = () => {
-    const { currentUser, updateUser } = useAppContext();
+    const { currentUser, updateUser, currentUserInfo } = useAppContext();
     const [isOpen, setIsOpen] = useState(false);
     const [formData, setFormData] = useState({
         firstName: currentUser?.firstName || "",
         lastName: currentUser?.lastName || "",
         email: currentUser?.email || "",
-        phoneNumber: currentUser?.phoneNumber || "",
-        // careerInterest: currentUser?.careerInterest || [],
-        location: currentUser?.location || "",
-        yearsOfExperience: currentUser?.yearsOfExperience || "",
-        // languages: currentUser?.languages || [],
-        about: currentUser?.about || ""
+        phoneNumber: currentUserInfo?.phoneNumber || "",
+        location: currentUserInfo?.location || "",
+        yearsOfExperience: currentUserInfo?.yearsOfExperience || "",
+        about: currentUserInfo?.about || ""
     });
 
     const clearFormData = () => {
@@ -24,10 +22,10 @@ const AboutMe = () => {
             firstName: currentUser?.firstName || "",
             lastName: currentUser?.lastName || "",
             email: currentUser?.email || "",
-            phoneNumber: currentUser?.phoneNumber || "",
-            location: currentUser?.location || "",
-            yearsOfExperience: currentUser?.yearsOfExperience || "",
-            about: currentUser?.about || ""
+            phoneNumber: currentUserInfo?.phoneNumber || "",
+            location: currentUserInfo?.location || "",
+            yearsOfExperience: currentUserInfo?.yearsOfExperience || "",
+            about: currentUserInfo?.about || ""
         });
     }
 
@@ -57,10 +55,10 @@ const AboutMe = () => {
     };
 
     useEffect(() => {
-        if (currentUser) {
+        if (currentUser && currentUserInfo) {
             clearFormData();
         }
-    }, [currentUser]);
+    }, [currentUser,currentUserInfo]);
 
     return (
         <div className="mt-16 relative">
@@ -83,26 +81,25 @@ const AboutMe = () => {
                         </div>
                         <div>
                             <p className="text-gray-500 text-xl">Phone number</p>
-                            <p className="font-medium">{currentUser?.phoneNumber || ""}</p>
+                            <p className="font-medium">{currentUserInfo?.phoneNumber || ""}</p>
                         </div>
                         <div>
                             <p className="text-gray-500 text-xl">Location</p>
-                            <p className="font-medium">{currentUser?.location || ""}</p>
+                            <p className="font-medium">{currentUserInfo?.location || ""}</p>
                         </div>
                         <div>
                             <p className="text-gray-500 text-xl">Years of experience</p>
-                            <p className="font-medium">{currentUser?.yearsOfExperience || ""}</p>
+                            <p className="font-medium">{currentUserInfo?.yearsOfExperience || ""}</p>
                         </div>
 
+                        {currentUserInfo?.about && (
+                            <div>
+                                <p className="text-gray-500 text-xl">About Me</p>
+                                <p className="font-medium">{currentUserInfo.about}</p>
+                            </div>
+                        )}
                     </div>
                     
-                    {currentUser?.about && (
-                        <div>
-                            <p className="text-gray-500 text-xl">About Me</p>
-                            <p className="font-medium">{currentUser.about}</p>
-                        </div>
-                    )}
-
                 </div>
 
                 <button 

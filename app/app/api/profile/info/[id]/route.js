@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 
 import connectDB from '@/config/db';
 import { User } from "@/models/User";
-import { createPersonalDetail } from "@/models/UserInfo";
+import { UserInfo } from "@/models/UserInfo";
+import { createPersonalDetail,findUserInfo } from "@/models/UserInfo";
 
 export async function POST(request) {
     const id = request.nextUrl.pathname.split("/").pop();
@@ -19,15 +20,26 @@ export async function POST(request) {
             return NextResponse.json({ success: false, message: "Invalid Credential" }, { status: 401 });
         }
 
-        const newPersonalDetail = await createPersonalDetail(
-            phoneNumber,
-            location,
-            yearsOfExperience,
-            about,
-            id
-        );
-        await newPersonalDetail.save();
-        return NextResponse.json({ success: true, message: "PersonalDetail created successfully" }, { status: 201 });
+        const userInfoExist = await findUserInfo(id);
+        if(!userInfoExist){
+            const newPersonalDetail = await createPersonalDetail(
+                phoneNumber,
+                location,
+                yearsOfExperience,
+                about,
+                id
+            );
+            await newPersonalDetail.save();
+            return NextResponse.json({ success: true, message: "PersonalDetail created successfully" }, { status: 201 });
+        }else{
+            const updatedUserInfo = await UserInfo.updateOne(
+                {userId:id},
+                { phoneNumber, location, yearsOfExperience, about }
+            )
+
+            return NextResponse.json({ success: true, message: "PersonalDetail update successfully" }, { status: 200 });
+        }
+
     }catch(error){
         console.log("Error in POST:", error);
         return NextResponse.json({success: false, message: "Something went wrong!"});
