@@ -16,6 +16,7 @@ export const AppContextProvider = (props) => {
     const router = useRouter()
 
     const [currentUser, setCurrentUser] = useState(null);
+    const [currentUserInfo, setCurrentUserInfo] = useState(null);
 
     const updateUser = (data) =>{
         setCurrentUser(data)

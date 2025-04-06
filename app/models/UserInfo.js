@@ -28,3 +28,8 @@ export async function createPersonalDetail(phoneNumber, location, yearsOfExperie
     return userInfo;
 }
 
+export async function findUserInfo(id) {
+    await connectDB();
+    const userInfo = await UserInfo.findOne({ userId:id });
+    return userInfo; 
+}

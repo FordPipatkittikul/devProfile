@@ -25,3 +25,9 @@ export async function createEducation(institute, degree, gpa, relatedCourseworks
     });
     return education;
 }
+
+export async function findEducation(id) {
+    await connectDB();
+    const education = await Education.find({ userId:id });
+    return education; 
+}

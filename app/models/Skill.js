@@ -10,7 +10,7 @@ const skillSchema = new mongoose.Schema({
 export const Skill = mongoose.models.skill || mongoose.model("skill", skillSchema);
 
 
-export async function checkUserSkill(id) {
+export async function findUserSkill(id) {
     await connectDB();
     const userSkill = await Skill.findOne({ userId:id });
     return userSkill; 

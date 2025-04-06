@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 
-import { checkUserSkill,createandSaveSkill,addskill } from "@/models/Skill";
+import { findUserSkill,createandSaveSkill,addskill } from "@/models/Skill";
 
 
 export async function POST(request) {
@@ -9,7 +9,7 @@ export async function POST(request) {
     const { skills } = await request.json();
     
     try{
-        const userSkillExist = await checkUserSkill(id);
+        const userSkillExist = await findUserSkill(id);
         if(!userSkillExist){
             await createandSaveSkill(id);
         }

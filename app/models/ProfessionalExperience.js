@@ -23,3 +23,9 @@ export async function createProfessionalExperience(company, role, period, descri
     });
     return professionalExperience;
 }
+
+export async function findProfessionalExperience(id) {
+    await connectDB();
+    const professionalExperience = await ProfessionalExperience.find({ userId:id });
+    return professionalExperience; 
+}
