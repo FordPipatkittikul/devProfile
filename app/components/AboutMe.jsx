@@ -65,48 +65,40 @@ const AboutMe = () => {
     return (
         <div className="mt-16 relative">
             <div className="container">
-                <h1 className="text-2xl font-bold">Personal Detail</h1>
+                <h1 className="text-3xl font-bold">Personal Detail</h1>
                 <div className="mt-6">
                     <div className="grid grid-cols-2 gap-4">
 
                         <div>
-                            <p className="text-gray-500 text-sm">First name</p>
+                            <p className="text-gray-500 text-xl">First name</p>
                             <p className="font-medium">{currentUser?.firstName || ""}</p>
                         </div>
                         <div>
-                            <p className="text-gray-500 text-sm">Last name</p>
+                            <p className="text-gray-500 text-xl">Last name</p>
                             <p className="font-medium">{currentUser?.lastName || ""}</p>
                         </div>
                         <div>
-                            <p className="text-gray-500 text-sm">Email</p>
+                            <p className="text-gray-500 text-xl">Email</p>
                             <p className="font-medium">{currentUser?.email || ""}</p>
                         </div>
                         <div>
-                            <p className="text-gray-500 text-sm">Phone number</p>
+                            <p className="text-gray-500 text-xl">Phone number</p>
                             <p className="font-medium">{currentUser?.phoneNumber || ""}</p>
                         </div>
-                        {/* <div>
-                            <p className="text-gray-500 text-sm">Career interest</p>
-                            <p className="font-medium">{currentUser?.careerInterest || "Not set"}</p>
-                        </div> */}
                         <div>
-                            <p className="text-gray-500 text-sm">Location</p>
+                            <p className="text-gray-500 text-xl">Location</p>
                             <p className="font-medium">{currentUser?.location || ""}</p>
                         </div>
                         <div>
-                            <p className="text-gray-500 text-sm">Years of experience</p>
+                            <p className="text-gray-500 text-xl">Years of experience</p>
                             <p className="font-medium">{currentUser?.yearsOfExperience || ""}</p>
                         </div>
-                        {/* <div>
-                            <p className="text-gray-500 text-sm">Languages</p>
-                            <p className="font-medium">{currentUser?.languages || "Not set"}</p>
-                        </div> */}
 
                     </div>
                     
                     {currentUser?.about && (
                         <div>
-                            <p className="text-gray-500 text-sm">About Me</p>
+                            <p className="text-gray-500 text-xl">About Me</p>
                             <p className="font-medium">{currentUser.about}</p>
                         </div>
                     )}
@@ -138,7 +130,7 @@ const AboutMe = () => {
             >
                 <div className="p-6">
                     <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-xl font-bold">Edit Personal Details</h2>
+                        <h2 className="text-3xl font-bold">Edit Personal Details</h2>
                         <button 
                             onClick={closeMenu}
                             className="text-gray-500 hover:text-gray-700"
@@ -154,7 +146,7 @@ const AboutMe = () => {
                         <div className="grid grid-cols-2 gap-4">
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-xl font-medium mb-1">
                                     First Name
                                 </label>
                                 <input
@@ -166,7 +158,7 @@ const AboutMe = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-xl font-medium mb-1">
                                     Last Name
                                 </label>
                                 <input
@@ -178,7 +170,7 @@ const AboutMe = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-xl font-medium mb-1">
                                     Email
                                 </label>
                                 <input
@@ -190,7 +182,7 @@ const AboutMe = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-xl font-medium mb-1">
                                     Phone Number
                                 </label>
                                 <input
@@ -201,20 +193,8 @@ const AboutMe = () => {
                                     className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                                 />
                             </div>
-                            {/* <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Career interest
-                                </label>
-                                <input
-                                    type="text"
-                                    name="careerInterest"
-                                    value={formData.careerInterest}
-                                    onChange={handleChange}
-                                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                                />
-                            </div> */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-xl font-medium mb-1">
                                     Location
                                 </label>
                                 <input
@@ -226,7 +206,7 @@ const AboutMe = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-xl font-medium mb-1">
                                     Years of experience
                                 </label>
                                 <input
@@ -237,24 +217,11 @@ const AboutMe = () => {
                                     className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                                 />
                             </div>
-                            {/* <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Languauges
-                                </label>
-                                <input
-                                    type="text"
-                                    name="yearsOfExperience"
-                                    value={formData.yearsOfExperience}
-                                    onChange={handleChange}
-                                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                                />
-                            </div> */}
-
 
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label className="block text-xl font-medium mb-1">
                                 About Me
                             </label>
                             <textarea

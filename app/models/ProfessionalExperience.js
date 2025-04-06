@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+import connectDB from '@/config/db';
+
 const professionalExperienceSchema = new mongoose.Schema({
     company: { type: String },
     role: { type: String },
@@ -9,3 +11,15 @@ const professionalExperienceSchema = new mongoose.Schema({
 }, { collection: "professionalExperience" });
 
 export const ProfessionalExperience = mongoose.models.professionalExperience || mongoose.model("professionalExperience", professionalExperienceSchema);
+
+export async function createProfessionalExperience(company, role, period, description, id) {
+    await connectDB();
+    const professionalExperience = new ProfessionalExperience({
+        company,
+        role,
+        period,
+        description,
+        userId:id,
+    });
+    return professionalExperience;
+}

@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import { useAppContext } from "@/context/AppContext";
-const mongoose = require("mongoose");
 
 import connectDB from '@/config/db';
 import { User } from "@/models/User";

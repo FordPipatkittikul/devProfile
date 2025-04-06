@@ -5,18 +5,18 @@ import Link from "next/link";
 
 import { useAppContext } from "@/context/AppContext";
 
-const Skills = () => {
+const Languages = () => {
     const { currentUser } = useAppContext();
     
     return (
         <div className="mt-16">
             <div className="container">
-                <h1 className="text-3xl font-bold">Skills</h1>
-                <button className="btn btn-outline mt-6">Add skill</button>
+                <h1 className="text-3xl font-bold">Languages</h1>
+                <button className="btn btn-outline mt-6 mb-16">Add Language</button>
             </div>
         </div>
     );
 
 }
 
-export default Skills;
+export default Languages;
