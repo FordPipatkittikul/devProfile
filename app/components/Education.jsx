@@ -100,7 +100,7 @@ const Education = () => {
                                 </div>
                             </div>
                         </div>
-                    ) : <Loading/>}
+                    ) : <></>}
 
                 <button 
                     onClick={toggleMenu} 

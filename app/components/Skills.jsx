@@ -48,7 +48,7 @@ const Skills = () => {
                             </div>
                         </div>
                     ))
-                ) : <Loading/>}
+                ) : <></>}
                 <button className="btn btn-outline mt-6">Add skill</button>
             </div>
         </div>

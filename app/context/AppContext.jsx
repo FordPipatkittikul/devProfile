@@ -61,6 +61,17 @@ export const AppContextProvider = (props) => {
         }
     }
 
+    const fetchProject = async () => {
+        if (currentUser?._id) {  
+            try {
+                const response = await axios.get(`/api/user/project/${currentUser._id}`);
+                setCurrentProject(response.data.userProject);
+            } catch (error) {
+                console.log("Error fetchExperience:", error);
+            }
+        }
+    }
+
     const fetchSkill = async () => {
         if (currentUser?._id) {  
             try {
@@ -97,14 +108,20 @@ export const AppContextProvider = (props) => {
             await fetchExperience();
         }
 
+        const getProject = async () => {
+            return fetchProject();
+        }
+
         const getSkill = async () => {
             await fetchSkill();
         }
+
 
         if (typeof window !== "undefined" && currentUser && currentUser._id) {
             getUserInfo();
             getEducation();
             getExperience();
+            getProject();
             getSkill();
         }
     }, [currentUser]);
@@ -124,9 +141,10 @@ export const AppContextProvider = (props) => {
     //     console.log("Updated languages:", currentUserInfo?.languages);
     //     console.log("Updated currentEducation:", currentEducation);
     //     console.log("Updated currentExperience:", currentExperience);
+    //     console.log("Updated project:", currentProject);
     //     console.log("Updated currentSkill:", currentSkill);
     //     // console.log("Updated currentUserInfo:", currentProject);
-    // }, [currentUser, currentUserInfo,currentEducation, currentExperience, currentSkill]); // This will log whenever currentUserInfo changes
+    // }, [currentUser, currentUserInfo,currentEducation, currentExperience, currentProject,currentSkill]); // This will log whenever currentUserInfo changes
 
     const value = {
         router, updateUser,

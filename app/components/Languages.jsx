@@ -48,7 +48,7 @@ const Languages = () => {
                             </div>
                         </div>
                     ))
-                ) : <Loading/>}
+                ) : <></>}
                 <button className="btn btn-outline mt-6 mb-16">Add Language</button>
             </div>
         </div>

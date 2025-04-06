@@ -49,7 +49,7 @@ const CareerInterest = () => {
                             </div>
                         </div>
                     ))
-                ) : <Loading/>}
+                ) : <></>}
                 <button className="btn btn-outline mt-6">Add career interest</button>
             </div>
         </div>

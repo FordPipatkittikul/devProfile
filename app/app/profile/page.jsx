@@ -9,6 +9,7 @@ import AboutMe from "@/components/AboutMe";
 import CareerInterest from "@/components/CareerInterest";
 import Education from "@/components/Education";
 import ProfessionalExperience from "@/components/ProfessionalExperience";
+import Project from "@/components/project";
 import Skills from "@/components/Skills";
 import Languages from "@/components/Languages";
 import Footer from "@/components/Footer";
@@ -26,6 +27,7 @@ const ProfilePage = ({ params }) => {
                 <CareerInterest/>
                 <Education/>
                 <ProfessionalExperience/>
+                <Project/>
                 <Skills/>
                 <Languages/>
                 <Footer/>

@@ -6,8 +6,8 @@ import Link from "next/link";
 import { useAppContext } from "@/context/AppContext";
 import Loading from "./Loading";
 
-const ProfessionalExperience = () => {
-    const { currentExperience } = useAppContext();
+const Project = () => {
+    const { currentProject } = useAppContext();
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -16,14 +16,6 @@ const ProfessionalExperience = () => {
   
     const closeMenu = () => {
         setIsOpen(false);
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
     };
 
     const handleSubmit = (e) => {
@@ -36,25 +28,23 @@ const ProfessionalExperience = () => {
     };
 
     useEffect(() => {
+    }, [currentProject]);
 
-    }, [currentExperience]);
-    
     return (
         <div className="mt-16">
             <div className="container">
-                <h1 className="text-3xl font-bold">Professional experience</h1>
-                {/* currentExperience Card Display */}
-                {Array.isArray(currentExperience) ? (
-                    currentExperience.map((exp, index) => (
+
+                <h1 className="text-3xl font-bold">Project</h1>
+                {/* Project Card Display */}
+                {Array.isArray(currentProject) ? (
+                    currentProject.map((p, index) => (
                         <div key={index} className="mt-4 bg-white rounded-lg shadow-md p-4 border border-gray-200">
                             <div className="flex justify-between items-start">
                                 <div className="flex-1">
-                                    <h2 className="text-3xl font-semibold">{exp?.company}</h2>
-                                    <p className="text-gray-700 mt-1">{exp?.role}</p>
-                                    <p className="text-gray-700 mt-1">{exp?.period}</p>
+                                    <h2 className="text-3xl font-semibold">{p?.name}</h2>
                                     <div className="mt-2">
-                                        <p className="text-2xl">Description:</p>
-                                        <p className="text-gray-600">{exp?.description}</p>
+                                        <p className="text-xl">Description:</p>
+                                        <p className="text-gray-600">{p?.description}</p>
                                     </div>
                                 </div>
                                 <div className="flex space-x-2">
@@ -76,16 +66,14 @@ const ProfessionalExperience = () => {
                             </div>
                         </div>
                     ))
-                    ) : currentExperience ? (
+                    ) : currentProject ? (
                         <div className="mt-4 bg-white rounded-lg shadow-md p-4 border border-gray-200">
                             <div className="flex justify-between items-start">
                                 <div className="flex-1">
-                                    <h2 className="text-3xl font-semibold">{currentExperience?.company}</h2>
-                                    <p className="text-gray-700 mt-1">{currentExperience?.role}</p>
-                                    <p className="text-gray-700 mt-1">{currentExperience?.period}</p>
+                                    <h2 className="text-3xl font-semibold">{currentProject?.name}</h2>
                                     <div className="mt-2">
-                                        <p className="text-2xl">Description:</p>
-                                        <p className="text-gray-600">{currentExperience?.description}</p>
+                                        <p className="text-xl">Description:</p>
+                                        <p className="text-gray-600">{currentProject?.description}</p>
                                     </div>
                                 </div>
                                 <div className="flex space-x-2">
@@ -106,10 +94,14 @@ const ProfessionalExperience = () => {
                                 </div>
                             </div>
                         </div>
-                    ) : <></>
-                }
-                
-                <button onClick={toggleMenu} className="btn btn-outline mt-6">Add experience</button>
+                ) : <></>}
+
+                <button 
+                    onClick={toggleMenu} 
+                    className="btn btn-outline mt-6"
+                >
+                    Add Project
+                </button>
 
                 {/* Overlay */}
                 {isOpen && (
@@ -125,7 +117,7 @@ const ProfessionalExperience = () => {
                 >
                     <div className="p-6">
                         <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-3xl font-bold">Add experience</h2>
+                            <h2 className="text-3xl font-bold">Add Project</h2>
                             <button 
                                 onClick={closeMenu}
                                 className="text-gray-500 hover:text-gray-700"
@@ -142,32 +134,11 @@ const ProfessionalExperience = () => {
 
                                 <div>
                                     <label className="block text-xl font-medium mb-1">
-                                        Job title
+                                        Name
                                     </label>
                                     <input
                                         type="text"
-                                        name="role"
-                                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-xl font-medium mb-1">
-                                        Company name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="company"
-                                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-xl font-medium mb-1">
-                                        Period
-                                    </label>
-                                    <p className="text-gray-500 text-sm mb-2">Example: Aug 2021 - Jun 2022</p>
-                                    <input
-                                        type="text"
-                                        name="period"
+                                        name="name"
                                         className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                                     />
                                 </div>
@@ -177,10 +148,10 @@ const ProfessionalExperience = () => {
                                 <label className="block text-xl font-medium mb-1">
                                     Description
                                 </label>
+                                <p className="text-gray-500 text-sm mb-2">Tell us about what you have done</p>
                                 <textarea
                                     type="text"
                                     name="description"
-                                    onChange={handleChange}
                                     rows="4"
                                     className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                                 ></textarea>
@@ -211,11 +182,12 @@ const ProfessionalExperience = () => {
 
                         </form>
                     </div>
-                </div>                                
+                </div>
+
             </div>
         </div>
     );
 
 }
 
-export default ProfessionalExperience;
+export default Project;
