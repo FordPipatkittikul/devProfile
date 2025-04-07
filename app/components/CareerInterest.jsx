@@ -1,12 +1,15 @@
 "use client"
 
 import { useState,useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 import { useAppContext } from "@/context/AppContext";
-import Loading from "./Loading";
+
 
 const CareerInterest = () => {
-    const { currentUserInfo } = useAppContext();
+    const { currentUserInfo, currentUser, updateUserInfo } = useAppContext();
+    const [isLoading,setIsLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -15,6 +18,26 @@ const CareerInterest = () => {
   
     const closeMenu = () => {
         setIsOpen(false);
+    };
+
+    const addCareerInterest = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        const careerInterest = new FormData(e.target)
+        const career = careerInterest.get("careerInterest")
+        try{
+            const res = await axios.post(`/api/profile/careerInterest/${currentUser._id}`, {
+                careerInterest:career
+            })
+            if(res.data.success){
+                updateUserInfo(res.data.newCareerInterest)
+                toast.success("add new career interest successfully")
+                closeMenu()
+            }
+            
+        }catch(error){
+            console.log("Error in adding CareerInterest", error);
+        }
     };
 
     useEffect(() => {
@@ -50,7 +73,65 @@ const CareerInterest = () => {
                         </div>
                     ))
                 ) : <></>}
-                <button className="btn btn-outline mt-6">Add career interest</button>
+
+                <button onClick={toggleMenu} className="btn btn-outline mt-6">Add career interest</button>
+                {/* Overlay */}
+                {isOpen && (
+                    <div 
+                        className="fixed inset-0 bg-black/40 bg-opacity-30 z-10"
+                        // onClick={closeMenu}
+                    ></div>
+                )}
+
+                <div className={`fixed right-0 top-0 w-[5in] h-screen bg-white shadow-lg transition-all duration-300 z-20 overflow-y-auto ${
+                            isOpen ? 'translate-x-0' : 'translate-x-full'
+                        }`}
+                >
+                    <div className="p-6">
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-3xl font-bold">Add career interest</h2>
+                            <button 
+                                onClick={closeMenu}
+                                className="text-gray-500 hover:text-gray-700"
+                            >
+                                <svg className="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <form onSubmit={addCareerInterest} className="space-y-4">
+                            <div className="grid grid-cols-1 gap-4">
+
+                                <div>
+                                    <label className="block text-xl font-medium mb-1">
+                                        Career
+                                    </label>
+                                    <p className="text-gray-500 text-sm mb-2">Example: fullstack dev</p>
+                                    <input
+                                        type="text"
+                                        name="careerInterest"
+                                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                                    />
+                                </div>
+
+                            </div>
+
+                            <div className="flex justify-start space-x-3 pt-4">
+                                <button
+                                    type="submit"
+                                    className="cursor-pointer btn"
+                                    disabled={isLoading}
+                                >
+                                    Add
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>                
+
             </div>
         </div>
     );

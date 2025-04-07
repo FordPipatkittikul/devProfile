@@ -18,7 +18,7 @@ export async function POST(request) {
         if (!newCareerInterest) {
             return NextResponse.json({ success: false, message: "Invalid Credential" }, { status: 401 });
         }
-        return NextResponse.json({ success: true, message: "add new career interest successfully" }, { status: 201 });
+        return NextResponse.json({ success: true, newCareerInterest }, { status: 200 });
     }catch(error){
         console.log("Error in POST:", error);
         return NextResponse.json({success: false, message: "Something went wrong!"});

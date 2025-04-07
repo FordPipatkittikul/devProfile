@@ -27,6 +27,10 @@ export const AppContextProvider = (props) => {
         setCurrentUser(data)
     }
 
+    const updateUserInfo = (data) => {
+        setCurrentUserInfo(data)
+    }
+
     const fetchUserInfo = async () => {
         if (currentUser?._id) {  
             try {
@@ -147,7 +151,7 @@ export const AppContextProvider = (props) => {
     // }, [currentUser, currentUserInfo,currentEducation, currentExperience, currentProject,currentSkill]); // This will log whenever currentUserInfo changes
 
     const value = {
-        router, updateUser,
+        router, updateUser, updateUserInfo,
         currentUser, currentUserInfo,
         currentEducation,currentSkill,
         currentExperience,currentProject
