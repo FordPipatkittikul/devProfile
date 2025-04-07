@@ -16,7 +16,7 @@ export async function POST(request) {
             id
         );
         await newEducation.save();
-        return NextResponse.json({ success: true, message: "Education created successfully" }, { status: 201 });
+        return NextResponse.json({ success: true, newEducation }, { status: 201 });
     }catch(error){
         console.log("Error in POST:", error);
         return NextResponse.json({success: false, message: "Something went wrong!"});

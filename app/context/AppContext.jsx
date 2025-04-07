@@ -16,12 +16,13 @@ export const AppContextProvider = (props) => {
     const router = useRouter()
 
     const [isClient, setIsClient] = useState(false);
+
     const [currentUser, setCurrentUser] = useState(null);
     const [currentUserInfo, setCurrentUserInfo] = useState(null);
-    const [currentEducation, setCurrentEducation] = useState(null);
+    const [currentEducation, setCurrentEducation] = useState([]);
     const [currentSkill, setCurrentSkill] = useState(null);
-    const [currentExperience, setCurrentExperience] = useState(null);
-    const [currentProject, setCurrentProject] = useState(null);
+    const [currentExperience, setCurrentExperience] = useState([]);
+    const [currentProject, setCurrentProject] = useState([]);
 
     const updateUser = (data) =>{
         setCurrentUser(data)
@@ -29,6 +30,22 @@ export const AppContextProvider = (props) => {
 
     const updateUserInfo = (data) => {
         setCurrentUserInfo(data)
+    }
+    
+    const updateEducation = (data) => {
+        currentEducation.push(data)
+    }
+
+    const updateSkill = (data) => {
+        setCurrentSkill(data)
+    }
+
+    const updateExperience = (data) => {
+        currentExperience.push(data)
+    }
+
+    const updateProject = (data) => {
+        currentProject.push(data)
     }
 
     const fetchUserInfo = async () => {
@@ -152,9 +169,10 @@ export const AppContextProvider = (props) => {
 
     const value = {
         router, updateUser, updateUserInfo,
-        currentUser, currentUserInfo,
-        currentEducation,currentSkill,
-        currentExperience,currentProject
+        currentUser, currentUserInfo, updateEducation,
+        currentEducation,currentSkill, updateSkill,
+        currentExperience,currentProject, updateExperience,
+        updateProject
     }
 
     if (!isClient) return null; // ✅ Don't render anything until mounted

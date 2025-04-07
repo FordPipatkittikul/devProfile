@@ -2,13 +2,16 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 import { useAppContext } from "@/context/AppContext";
 import Loading from "./Loading";
 
 const Project = () => {
-    const { currentProject } = useAppContext();
+    const { currentProject, currentUser, updateProject } = useAppContext();
     const [isOpen, setIsOpen] = useState(false);
+    const [isLoading,setIsLoading] = useState(false);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -18,13 +21,29 @@ const Project = () => {
         setIsOpen(false);
     };
 
-    const handleSubmit = (e) => {
-        // e.preventDefault();
-        // // Assuming you have an updateUser function in your context
-        // if (typeof updateUser === 'function') {
-        //     updateUser(formData);
-        // }
-        closeMenu();
+    const addProject = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        const project = new FormData(e.target)
+        const name = project.get("name")
+        const description = project.get("description")
+
+        try{
+            const res = await axios.post(`/api/profile/project/${currentUser._id}`,{
+                name,
+                description,
+            })
+            if(res.data.success){
+                updateProject(res.data.newProject)
+                toast.success("Add project successfully");
+            }else {
+                toast.error("cannot add project")
+            }
+        }catch(error){
+            console.log("Error in adding project:", error);
+        }finally{
+            setIsLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -129,7 +148,7 @@ const Project = () => {
                             </button>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={addProject} className="space-y-4">
                             <div className="grid grid-cols-1 gap-4">
 
                                 <div>
@@ -159,7 +178,6 @@ const Project = () => {
 
                             <div className="flex justify-start space-x-3 pt-4">
                                 <button
-                                    type="button"
                                     onClick={ () => {
                                         closeMenu()
                                         }
@@ -169,14 +187,14 @@ const Project = () => {
                                     Cancel
                                 </button>
                                 <button
-                                    type="submit"
+                                    disabled={isLoading}
                                     onClick={ () => {
                                         closeMenu()
                                         }
                                     }
                                     className="cursor-pointer btn"
                                 >
-                                    Save Changes
+                                    Add
                                 </button>
                             </div>
 

@@ -2,13 +2,16 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 import { useAppContext } from "@/context/AppContext";
 import Loading from "./Loading";
 
 const ProfessionalExperience = () => {
-    const { currentExperience } = useAppContext();
+    const { currentExperience, currentUser, updateExperience  } = useAppContext();
     const [isOpen, setIsOpen] = useState(false);
+    const [isLoading,setIsLoading] = useState(false);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -18,25 +21,36 @@ const ProfessionalExperience = () => {
         setIsOpen(false);
     };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    };
+    const addExperience = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        const experience = new FormData(e.target)
+        const role = experience.get("role")
+        const company = experience.get("company")
+        const period = experience.get("period")
+        const description = experience.get("description")
 
-    const handleSubmit = (e) => {
-        // e.preventDefault();
-        // // Assuming you have an updateUser function in your context
-        // if (typeof updateUser === 'function') {
-        //     updateUser(formData);
-        // }
-        closeMenu();
+        try{
+            const res = await axios.post(`/api/profile/experience/${currentUser._id}`,{
+                company,
+                role,
+                period,
+                description,
+            })
+            if(res.data.success){
+                updateExperience(res.data.newProfessionalExperience)
+                toast.success("Add experience successfully");
+            }else {
+                toast.error("cannot add experience")
+            }
+        }catch(error){
+            console.log("Error in adding experience:", error);
+        }finally{
+            setIsLoading(false);
+        }
     };
 
     useEffect(() => {
-
     }, [currentExperience]);
     
     return (
@@ -119,6 +133,7 @@ const ProfessionalExperience = () => {
                     ></div>
                 )}
 
+                {/* Add Experience */}
                 <div className={`fixed right-0 top-0 w-[5in] h-screen bg-white shadow-lg transition-all duration-300 z-20 overflow-y-auto ${
                             isOpen ? 'translate-x-0' : 'translate-x-full'
                         }`}
@@ -137,7 +152,7 @@ const ProfessionalExperience = () => {
                             </button>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={addExperience} className="space-y-4">
                             <div className="grid grid-cols-1 gap-4">
 
                                 <div>
@@ -180,7 +195,6 @@ const ProfessionalExperience = () => {
                                 <textarea
                                     type="text"
                                     name="description"
-                                    onChange={handleChange}
                                     rows="4"
                                     className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                                 ></textarea>
@@ -188,7 +202,6 @@ const ProfessionalExperience = () => {
 
                             <div className="flex justify-start space-x-3 pt-4">
                                 <button
-                                    type="button"
                                     onClick={ () => {
                                         closeMenu()
                                         }
@@ -198,20 +211,22 @@ const ProfessionalExperience = () => {
                                     Cancel
                                 </button>
                                 <button
-                                    type="submit"
+                                    disabled={isLoading}
                                     onClick={ () => {
                                         closeMenu()
                                         }
                                     }
                                     className="cursor-pointer btn"
                                 >
-                                    Save Changes
+                                    Add
                                 </button>
                             </div>
 
                         </form>
                     </div>
-                </div>                                
+                </div>
+                
+                                                
             </div>
         </div>
     );

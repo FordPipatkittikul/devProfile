@@ -2,13 +2,16 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 import { useAppContext } from "@/context/AppContext";
 import Loading from "./Loading";
 
 const Education = () => {
-    const { currentEducation } = useAppContext();
+    const { currentUser,currentEducation, updateEducation } = useAppContext();
     const [isOpen, setIsOpen] = useState(false);
+    const [isLoading,setIsLoading] = useState(false);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -18,13 +21,36 @@ const Education = () => {
         setIsOpen(false);
     };
 
-    const handleSubmit = (e) => {
-        // e.preventDefault();
-        // // Assuming you have an updateUser function in your context
-        // if (typeof updateUser === 'function') {
-        //     updateUser(formData);
-        // }
-        closeMenu();
+    const addEducation = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        const education = new FormData(e.target)
+        const degree = education.get("degree")
+        const institute = education.get("institute")
+        const gpa = education.get("gpa")
+        const graduation = education.get("graduation")
+        const relatedCourseworks = education.get("relatedCourseWorks")
+
+        try{
+            const res = await axios.post(`/api/profile/education/${currentUser._id}`,{
+                institute,
+                degree,
+                gpa,
+                relatedCourseworks,
+                graduation,
+            })
+            if(res.data.success){
+                updateEducation(res.data.newEducation)
+                toast.success("Add education successfully");
+            }else {
+                toast.error("cannot add Education")
+            }
+        }catch(error){
+            console.log("Error in add education:", error);
+        }finally{
+            setIsLoading(false);
+        }
+
     };
 
     useEffect(() => {
@@ -116,7 +142,8 @@ const Education = () => {
                         // onClick={closeMenu}
                     ></div>
                 )}
-
+                
+                {/* Add Education */}
                 <div className={`fixed right-0 top-0 w-[5in] h-screen bg-white shadow-lg transition-all duration-300 z-20 overflow-y-auto ${
                             isOpen ? 'translate-x-0' : 'translate-x-full'
                         }`}
@@ -135,7 +162,7 @@ const Education = () => {
                             </button>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={addEducation} className="space-y-4">
                             <div className="grid grid-cols-1 gap-4">
 
                                 <div>
@@ -166,6 +193,7 @@ const Education = () => {
                                     <input
                                         type="number"
                                         name="gpa"
+                                        step="any"
                                         className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                                     />
                                 </div>
@@ -189,7 +217,7 @@ const Education = () => {
                                 <p className="text-gray-500 text-sm mb-2">Example: Intro to python, Intro to javascript, Intro to react</p>
                                 <textarea
                                     type="text"
-                                    name="relatedCourseworks"
+                                    name="relatedCourseWorks"
                                     rows="4"
                                     className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                                 ></textarea>
@@ -197,7 +225,6 @@ const Education = () => {
 
                             <div className="flex justify-start space-x-3 pt-4">
                                 <button
-                                    type="button"
                                     onClick={ () => {
                                         closeMenu()
                                         }
@@ -207,14 +234,14 @@ const Education = () => {
                                     Cancel
                                 </button>
                                 <button
-                                    type="submit"
+                                    disabled={isLoading}
                                     onClick={ () => {
                                         closeMenu()
                                         }
                                     }
                                     className="cursor-pointer btn"
                                 >
-                                    Save Changes
+                                    Add
                                 </button>
                             </div>
 

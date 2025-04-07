@@ -37,6 +37,8 @@ const CareerInterest = () => {
             
         }catch(error){
             console.log("Error in adding CareerInterest", error);
+        }finally{
+            setIsLoading(false);
         }
     };
 
@@ -120,6 +122,7 @@ const CareerInterest = () => {
 
                             <div className="flex justify-start space-x-3 pt-4">
                                 <button
+                                    minLength="2"
                                     type="submit"
                                     className="cursor-pointer btn"
                                     disabled={isLoading}

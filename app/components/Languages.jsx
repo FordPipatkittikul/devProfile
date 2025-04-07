@@ -36,6 +36,8 @@ const Languages = () => {
             }
         }catch(error){
             console.log("Error in adding Language", error);
+        }finally{
+            setIsLoading(false);
         }
     }
 
@@ -108,6 +110,7 @@ const Languages = () => {
                                         language
                                     </label>
                                     <input
+                                        minLength="2"
                                         type="text"
                                         name="language"
                                         className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
