@@ -24,14 +24,14 @@ const Devcard = ({dev}) => {
                 {avatar && <Image src={avatar} alt="Developer" width={100} height={100} className="dev-avatar" />}
             </div>
             <div className="dev-info">
-                <h3 className="dev-name">{dev.name}</h3>
-                <div className="dev-title">{dev.title}</div>
+                <h3 className="dev-name">{`${dev.firstName} ${dev.lastName}`}</h3>
+                <div className="dev-title">{dev?.userInfo?.careerInterest[0]}</div>
                 <div className="dev-tags">
-                    <span className="dev-tag">{dev.tags[0]}</span>
-                    <span className="dev-tag">{dev.tags[1]}</span>
-                    <span className="dev-tag">{dev.tags[2]}</span>
+                    <span className="dev-tag">{dev?.skill?.skills[0]}</span>
+                    <span className="dev-tag">{dev?.skill?.skills[1]}</span>
+                    <span className="dev-tag">{dev?.skill?.skills[2]}</span>
                 </div>
-                <div onClick={() => { router.push('/developer/' + dev.id); scrollTo(0, 0) }} className="btn">View Profile</div>
+                <div onClick={() => { router.push('/developer/' + dev._id); scrollTo(0, 0) }} className="btn">View Profile</div>
             </div>
         </div>
     );

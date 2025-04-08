@@ -24,6 +24,8 @@ export const AppContextProvider = (props) => {
     const [currentExperience, setCurrentExperience] = useState([]);
     const [currentProject, setCurrentProject] = useState([]);
 
+    const [developers, setDevelopers] = useState([]);
+
     const updateUser = (data) =>{
         setCurrentUser(data)
     }
@@ -104,6 +106,15 @@ export const AppContextProvider = (props) => {
         }
     }
 
+    const fetchDevelopers = async () => {
+        try {
+            const response = await axios.get(`/api/developers`);
+            setDevelopers(response.data.devsWithoutPass);
+        } catch (error) {
+            console.log("Error fetchUserInfo:", error);
+        }
+    }
+
     //✅ Load user from localStorage on client only
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -137,6 +148,9 @@ export const AppContextProvider = (props) => {
             await fetchSkill();
         }
 
+        const getDevelopers = async () => {
+            await fetchDevelopers();
+        };
 
         if (typeof window !== "undefined" && currentUser && currentUser._id) {
             getUserInfo();
@@ -144,6 +158,7 @@ export const AppContextProvider = (props) => {
             getExperience();
             getProject();
             getSkill();
+            getDevelopers();
         }
     }, [currentUser]);
 
@@ -172,7 +187,7 @@ export const AppContextProvider = (props) => {
         currentUser, currentUserInfo, updateEducation,
         currentEducation,currentSkill, updateSkill,
         currentExperience,currentProject, updateExperience,
-        updateProject
+        updateProject, developers
     }
 
     if (!isClient) return null; // ✅ Don't render anything until mounted
