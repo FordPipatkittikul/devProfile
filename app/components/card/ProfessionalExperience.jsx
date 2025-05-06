@@ -1,23 +1,34 @@
 "use client"
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
+import ProfessionalExperienceFormDrawer from "../drawer/ProfessionalExperienceFormDrawer";
 import { useAppContext } from "@/context/AppContext";
-import Loading from "./Loading";
 
 const ProfessionalExperience = () => {
-    const { currentExperience, currentUser, updateExperience  } = useAppContext();
+    const { currentExperience, currentUser, updateExperience, router  } = useAppContext();
+    const [isEdit, setIsEdit] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading,setIsLoading] = useState(false);
+
+    const handleChangeUrl = (id) => {
+        const newPath = `/profile/experience/${id}`; // Define the new URL path
+        router.push(newPath);
+    };
+
+    const toggleEditMenu = () => {
+        setIsOpen(!isOpen);
+        setIsEdit(!isOpen);
+    };
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
   
     const closeMenu = () => {
+        setIsEdit(false);
         setIsOpen(false);
     };
 
@@ -72,18 +83,17 @@ const ProfessionalExperience = () => {
                                     </div>
                                 </div>
                                 <div className="flex space-x-2">
-                                    <button className="p-2 text-blue-500 hover:text-blue-700">
+                                    <button 
+                                        className="p-2 text-blue-500 hover:text-blue-700 cursor-pointer"
+                                        onClick={() => {
+                                            toggleEditMenu();
+                                            handleChangeUrl(exp?._id);
+                                            // You can call more functions here
+                                        }}
+                                    >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                        </svg>
-                                    </button>
-                                    <button className="p-2 text-red-500 hover:text-red-700">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                            <line x1="14" y1="11" x2="14" y2="17"></line>
                                         </svg>
                                     </button>
                                 </div>
@@ -103,18 +113,17 @@ const ProfessionalExperience = () => {
                                     </div>
                                 </div>
                                 <div className="flex space-x-2">
-                                    <button className="p-2 text-blue-500 hover:text-blue-700">
+                                    <button 
+                                        className="p-2 text-blue-500 hover:text-blue-700 cursor-pointer"
+                                        onClick={() => {
+                                            toggleEditMenu();
+                                            handleChangeUrl(currentExperience?._id);
+                                            // You can call more functions here
+                                        }}
+                                    >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                        </svg>
-                                    </button>
-                                    <button className="p-2 text-red-500 hover:text-red-700">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                            <line x1="14" y1="11" x2="14" y2="17"></line>
                                         </svg>
                                     </button>
                                 </div>
@@ -134,7 +143,7 @@ const ProfessionalExperience = () => {
                 )}
 
                 {/* Add Experience */}
-                <div className={`fixed right-0 top-0 w-[5in] h-screen bg-white shadow-lg transition-all duration-300 z-20 overflow-y-auto ${
+                {/* <div className={`fixed right-0 top-0 w-[5in] h-screen bg-white shadow-lg transition-all duration-300 z-20 overflow-y-auto ${
                             isOpen ? 'translate-x-0' : 'translate-x-full'
                         }`}
                 >
@@ -224,7 +233,16 @@ const ProfessionalExperience = () => {
 
                         </form>
                     </div>
-                </div>
+                </div> */}
+                <ProfessionalExperienceFormDrawer
+                    isEdit={isEdit}
+                    isOpen={isOpen}
+                    closeMenu={closeMenu}
+                    onSubmit={addExperience}
+                    isLoading={isLoading}
+                    formTitle={isEdit ? "Edit experience" : "Add experience"}
+                    submitButtonLabel={isEdit ? "Edit" : "Add"}
+                />
                 
                                                 
             </div>

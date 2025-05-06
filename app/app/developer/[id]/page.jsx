@@ -6,11 +6,9 @@ import { useParams } from 'next/navigation';
 import axios from "axios";
 import { motion } from "framer-motion";
 
-import { useAppContext } from '@/context/AppContext';
 import { assets } from "@/assets/assets";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ContactUs from "@/components/ContactUs";
 
 const Developer = () => {
     const [developer, setDeveloper] = useState({})
@@ -145,7 +143,7 @@ const Developer = () => {
                 variants={fadeIn}
             >
                 <motion.h2 
-                    className="text-center text-4xl md:text-5xl font-bold text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-700"
+                    className="text-center text-4xl md:text-5xl font-bold text-gray-800 bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-700"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.7 }}
