@@ -37,3 +37,13 @@ export async function addskill(skills,id) {
     return newSkill;
 }
 
+export async function deleteskill(skill,id) {
+    await connectDB();
+    await Skill.updateOne(
+        { userId:id },
+        { $pull: { skills: skill } }
+    );
+    const userSkill = await Skill.findOne({ userId:id });
+    return userSkill;
+}
+
