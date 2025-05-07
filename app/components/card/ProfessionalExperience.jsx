@@ -53,11 +53,43 @@ const ProfessionalExperience = () => {
             if(res.data.success){
                 updateExperience(res.data.newProfessionalExperience)
                 toast.success("Add experience successfully");
+                closeMenu();
             }else {
                 toast.error("cannot add experience")
             }
         }catch(error){
             console.log("Error in adding experience:", error);
+        }finally{
+            setIsLoading(false);
+        }
+    };
+
+    const editExperience = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        const id = pathname.split("/").pop();
+
+        const experience = new FormData(e.target)
+        const role = experience.get("role")
+        const company = experience.get("company")
+        const period = experience.get("period")
+        const description = experience.get("description")
+
+        try{
+            const res = await axios.put(`/api/profile/experience/${id}`,{
+                company,
+                role,
+                period,
+                description,
+            })
+            if(res.data.success){
+                toast.success("Edit experience successfully");
+                closeMenu();
+            }else {
+                toast.error("cannot edit experience")
+            }
+        }catch(error){
+            console.log("Error in editing experience:", error);
         }finally{
             setIsLoading(false);
         }
@@ -70,6 +102,7 @@ const ProfessionalExperience = () => {
             const res = await axios.delete(`/api/profile/experience/${id}`)
             if(res.data.success){
                 toast.success("Deleted experience successfully");
+                closeMenu();
             }else {
                 toast.error("Could not delete experience")
             }
@@ -79,6 +112,15 @@ const ProfessionalExperience = () => {
             setIsLoading(false);
         }
     }
+
+    const handleSubmit = (e) => {
+        console.log("isEdit in handleSubmit:", isEdit)
+        if (isEdit) {
+            editExperience(e);
+        } else {
+            addExperience(e);
+        }
+    };
 
     useEffect(() => {
     }, [currentExperience]);
@@ -165,7 +207,7 @@ const ProfessionalExperience = () => {
                     isEdit={isEdit}
                     isOpen={isOpen}
                     closeMenu={closeMenu}
-                    onSubmit={addExperience}
+                    onSubmit={handleSubmit}
                     onDelete={deleteExperience}
                     isLoading={isLoading}
                     formTitle={isEdit ? "Edit experience" : "Add experience"}

@@ -7,7 +7,6 @@ const ProjectFormDrawer = ({
   onSubmit,
   onDelete,
   isLoading,
-  initialValues = {},
   formTitle,
   submitButtonLabel
 }) => {
@@ -69,7 +68,6 @@ const ProjectFormDrawer = ({
                     <button
                         type="submit"
                         disabled={isLoading}
-                        onClick={closeMenu}
                         className="cursor-pointer btn"
                     >
                         {submitButtonLabel}
@@ -81,7 +79,6 @@ const ProjectFormDrawer = ({
                                 disabled={isLoading}
                                 onClick={ () => {
                                   onDelete()
-                                  closeMenu()
                                 }
                                 }
                             >

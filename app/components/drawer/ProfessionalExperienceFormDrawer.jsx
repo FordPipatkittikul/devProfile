@@ -7,7 +7,6 @@ const ProfessionalExperienceFormDrawer = ({
   onSubmit,
   onDelete,
   isLoading,
-  initialValues = {},
   formTitle,
   submitButtonLabel
 }) => {
@@ -89,7 +88,6 @@ const ProfessionalExperienceFormDrawer = ({
                     <button
                         type="submit"
                         disabled={isLoading}
-                        onClick={closeMenu}
                         className="cursor-pointer btn"
                     >
                         {submitButtonLabel}
@@ -101,7 +99,6 @@ const ProfessionalExperienceFormDrawer = ({
                                 disabled={isLoading}
                                 onClick={ () => {
                                   onDelete()
-                                  closeMenu()
                                 }
                                 }                                
                             >

@@ -50,11 +50,39 @@ const Project = () => {
             if(res.data.success){
                 updateProject(res.data.newProject)
                 toast.success("Add project successfully");
+                closeMenu();
             }else {
                 toast.error("cannot add project")
             }
         }catch(error){
             console.log("Error in adding project:", error);
+        }finally{
+            setIsLoading(false);
+        }
+    };
+
+    const editProject = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        const id = pathname.split("/").pop();
+
+        const project = new FormData(e.target)
+        const name = project.get("name")
+        const description = project.get("description")
+
+        try{
+            const res = await axios.put(`/api/profile/project/${id}`,{
+                name,
+                description,
+            })
+            if(res.data.success){
+                toast.success("Edit project successfully");
+                closeMenu();
+            }else {
+                toast.error("cannot edit project")
+            }
+        }catch(error){
+            console.log("Error in editting project:", error);
         }finally{
             setIsLoading(false);
         }
@@ -67,6 +95,7 @@ const Project = () => {
             const res = await axios.delete(`/api/profile/project/${id}`)
             if(res.data.success){
                 toast.success("Deleted project successfully");
+                closeMenu();
             }else {
                 toast.error("Could not delete project")
             }
@@ -76,6 +105,15 @@ const Project = () => {
             setIsLoading(false);
         }
     }
+
+    const handleSubmit = (e) => {
+        console.log("isEdit in handleSubmit:", isEdit)
+        if (isEdit) {
+            editProject(e);
+        } else {
+            addProject(e);
+        }
+    };
 
     useEffect(() => {
     }, [currentProject]);
@@ -163,7 +201,7 @@ const Project = () => {
                     isEdit={isEdit}
                     isOpen={isOpen}
                     closeMenu={closeMenu}
-                    onSubmit={addProject}
+                    onSubmit={handleSubmit}
                     onDelete={deleteProject}
                     isLoading={isLoading}
                     formTitle={isEdit ? "Edit project" : "Add project"}

@@ -93,7 +93,7 @@ const Education = () => {
                 toast.error("cannot edit Education")
             }
         }catch(error){
-            console.log("Error in edit education:", error);
+            console.log("Error in editting education:", error);
         }finally{
             setIsLoading(false);
         }
