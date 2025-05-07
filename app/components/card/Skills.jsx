@@ -40,7 +40,6 @@ const Skills = () => {
             if(res.data.success){
                 updateSkill(res.data.remainingSkill)
                 toast.success("delete skill successfully")
-                closeMenu()
             }
         }catch(error){
             console.log("Error in deleting Skill", error);
@@ -75,7 +74,6 @@ const Skills = () => {
                                             className="p-2 text-red-500 hover:text-red-700 cursor-pointer"
                                             disabled={isLoading}
                                             onClick={ () => {
-                                                console.log(skill)
                                                 deleteSkill(skill);
                                             }}
                                         >

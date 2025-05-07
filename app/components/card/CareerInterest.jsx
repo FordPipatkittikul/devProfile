@@ -42,6 +42,21 @@ const CareerInterest = () => {
         }
     };
 
+    const deleteCareerInterest = async (careerInterest) => {
+        setIsLoading(true);
+        try{
+            const res = await axios.delete(`/api/profile/careerInterest/${currentUser._id}?careerInterest=${encodeURIComponent(careerInterest)}`);
+            if(res.data.success){
+                updateUserInfo(res.data.remainingUserInfo)
+                toast.success("delete career interest successfully")
+            }
+        }catch(error){
+            console.log("Error in deleting career interest", error);
+        }finally{
+            setIsLoading(false);
+        }
+    }
+
     useEffect(() => {
     }, [currentUserInfo]);
     
@@ -56,7 +71,13 @@ const CareerInterest = () => {
                             <div className="flex items-start">
                                 <h1 className="text-2xl font-semibold">{info}</h1>
                                 <div className="flex space-x-2 ml-auto">
-                                    <button className="p-2 text-red-500 hover:text-red-700 cursor-pointer">
+                                    <button 
+                                        className="p-2 text-red-500 hover:text-red-700 cursor-pointer"
+                                        disabled={isLoading}
+                                        onClick={ () => {
+                                            deleteCareerInterest(info);
+                                        }}
+                                    >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <polyline points="3 6 5 6 21 6"></polyline>
                                             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>

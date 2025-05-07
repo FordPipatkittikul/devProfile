@@ -33,3 +33,23 @@ export async function findUserInfo(id) {
     const userInfo = await UserInfo.findOne({ userId:id });
     return userInfo; 
 }
+
+export async function deletelanguage(language,id) {
+    await connectDB();
+    await UserInfo.updateOne(
+        { userId:id },
+        { $pull: { languages: language } }
+    );
+    const languages = await UserInfo.findOne({ userId:id });
+    return languages;
+}
+
+export async function deleteCareerInterest(careerInterest,id) {
+    await connectDB();
+    await UserInfo.updateOne(
+        { userId:id },
+        { $pull: { careerInterest: careerInterest } }
+    );
+    const careerInterests = await UserInfo.findOne({ userId:id });
+    return careerInterests;
+}
