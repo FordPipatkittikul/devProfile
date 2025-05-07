@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 
 const EducationFormDrawer = ({
@@ -5,8 +7,8 @@ const EducationFormDrawer = ({
   isOpen,
   closeMenu,
   onSubmit,
+  onDelete,
   isLoading,
-  initialValues = {},
   formTitle,
   submitButtonLabel
 }) => {
@@ -48,7 +50,6 @@ const EducationFormDrawer = ({
               <input
                 type="text"
                 name="degree"
-                defaultValue={initialValues.degree || ''}
                 className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
               />
             </div>
@@ -57,7 +58,6 @@ const EducationFormDrawer = ({
               <input
                 type="text"
                 name="institute"
-                defaultValue={initialValues.institute || ''}
                 className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
               />
             </div>
@@ -67,19 +67,17 @@ const EducationFormDrawer = ({
                 type="number"
                 name="gpa"
                 step="any"
-                defaultValue={initialValues.gpa || ''}
                 className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
               />
             </div>
             <div>
               <label className="block text-xl font-medium mb-1">Graduation</label>
               <p className="text-gray-500 text-sm mb-2">
-                Example: Expected May 2030 or May 2018
+                Example: Expected May 2030 
               </p>
               <input
                 type="text"
                 name="graduation"
-                defaultValue={initialValues.graduation || ''}
                 className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
               />
             </div>
@@ -93,7 +91,6 @@ const EducationFormDrawer = ({
             <textarea
               name="relatedCourseWorks"
               rows="4"
-              defaultValue={initialValues.relatedCourseWorks || ''}
               className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
             />
           </div>
@@ -105,14 +102,20 @@ const EducationFormDrawer = ({
             <button
               type="submit"
               disabled={isLoading}
-              onClick={closeMenu}
               className="cursor-pointer btn"
             >
               {submitButtonLabel}
             </button>
             {
               isEdit ? (
-                <button className="p-2 text-red-500 hover:text-red-700 cursor-pointer ml-auto">
+                <button 
+                  className="p-2 text-red-500 hover:text-red-700 cursor-pointer ml-auto"
+                  disabled={isLoading}
+                  onClick={ () => {
+                    onDelete()
+                  }
+                }
+                >
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="3 6 5 6 21 6"></polyline>
                       <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>

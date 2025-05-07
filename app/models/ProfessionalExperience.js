@@ -29,3 +29,25 @@ export async function findProfessionalExperience(id) {
     const professionalExperience = await ProfessionalExperience.find({ userId:id });
     return professionalExperience; 
 }
+
+export async function deleteProfessionalExperienceById(id) {
+    await connectDB();
+    const professionalExperience = await ProfessionalExperience.findByIdAndDelete(id);
+    return professionalExperience
+}
+
+export async function updateProfessionalExperienceById(id, company, role, period, description) {
+    await connectDB();
+    const objectId = new mongoose.Types.ObjectId(id);
+    const updatedProfessionalExperience = await ProfessionalExperience.findByIdAndUpdate(
+        objectId,
+        {
+            company, 
+            role, 
+            period, 
+            description
+        },
+        { new: true, runValidators: true }
+    );
+    return updatedProfessionalExperience
+}

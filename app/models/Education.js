@@ -31,3 +31,33 @@ export async function findEducation(id) {
     const education = await Education.find({ userId:id });
     return education; 
 }
+
+export async function findEducationbyId(id) {
+    await connectDB();
+    const education = await Education.findById(id);
+    return education; 
+}
+
+
+export async function deleteEducationById(id) {
+    await connectDB();
+    const education = await Education.findByIdAndDelete(id);
+    return education
+}
+
+export async function updateEducationById(id, institute, degree, gpa, relatedCourseworks, graduation) {
+    await connectDB();
+    const objectId = new mongoose.Types.ObjectId(id);
+    const updatedEducation = await Education.findByIdAndUpdate(
+        objectId,
+        {
+            institute,
+            degree,
+            gpa,
+            relatedCourseworks,
+            graduation,
+        },
+        { new: true, runValidators: true }
+    );
+    return updatedEducation
+}

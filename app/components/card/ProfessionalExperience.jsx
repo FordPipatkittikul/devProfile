@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { usePathname } from 'next/navigation';
 
 import ProfessionalExperienceFormDrawer from "../drawer/ProfessionalExperienceFormDrawer";
 import { useAppContext } from "@/context/AppContext";
 
 const ProfessionalExperience = () => {
     const { currentExperience, currentUser, updateExperience, router  } = useAppContext();
+    const pathname = usePathname();
     const [isEdit, setIsEdit] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading,setIsLoading] = useState(false);
@@ -60,6 +62,23 @@ const ProfessionalExperience = () => {
             setIsLoading(false);
         }
     };
+
+    const deleteExperience = async () => {
+        setIsLoading(true);
+        try{
+            const id = pathname.split("/").pop();
+            const res = await axios.delete(`/api/profile/experience/${id}`)
+            if(res.data.success){
+                toast.success("Deleted experience successfully");
+            }else {
+                toast.error("Could not delete experience")
+            }
+        }catch(error){
+            console.log("Error deleting experience:", error);
+        }finally{
+            setIsLoading(false);
+        }
+    }
 
     useEffect(() => {
     }, [currentExperience]);
@@ -142,109 +161,17 @@ const ProfessionalExperience = () => {
                     ></div>
                 )}
 
-                {/* Add Experience */}
-                {/* <div className={`fixed right-0 top-0 w-[5in] h-screen bg-white shadow-lg transition-all duration-300 z-20 overflow-y-auto ${
-                            isOpen ? 'translate-x-0' : 'translate-x-full'
-                        }`}
-                >
-                    <div className="p-6">
-                        <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-3xl font-bold">Add experience</h2>
-                            <button 
-                                onClick={closeMenu}
-                                className="text-gray-500 hover:text-gray-700"
-                            >
-                                <svg className="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <form onSubmit={addExperience} className="space-y-4">
-                            <div className="grid grid-cols-1 gap-4">
-
-                                <div>
-                                    <label className="block text-xl font-medium mb-1">
-                                        Job title
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="role"
-                                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-xl font-medium mb-1">
-                                        Company name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="company"
-                                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-xl font-medium mb-1">
-                                        Period
-                                    </label>
-                                    <p className="text-gray-500 text-sm mb-2">Example: Aug 2021 - Jun 2022</p>
-                                    <input
-                                        type="text"
-                                        name="period"
-                                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                                    />
-                                </div>
-
-                            </div>
-                            <div>
-                                <label className="block text-xl font-medium mb-1">
-                                    Description
-                                </label>
-                                <textarea
-                                    type="text"
-                                    name="description"
-                                    rows="4"
-                                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                                ></textarea>
-                            </div>
-
-                            <div className="flex justify-start space-x-3 pt-4">
-                                <button
-                                    onClick={ () => {
-                                        closeMenu()
-                                        }
-                                    }
-                                    className="cursor-pointer btn btn-outline"
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    disabled={isLoading}
-                                    onClick={ () => {
-                                        closeMenu()
-                                        }
-                                    }
-                                    className="cursor-pointer btn"
-                                >
-                                    Add
-                                </button>
-                            </div>
-
-                        </form>
-                    </div>
-                </div> */}
                 <ProfessionalExperienceFormDrawer
                     isEdit={isEdit}
                     isOpen={isOpen}
                     closeMenu={closeMenu}
                     onSubmit={addExperience}
+                    onDelete={deleteExperience}
                     isLoading={isLoading}
                     formTitle={isEdit ? "Edit experience" : "Add experience"}
                     submitButtonLabel={isEdit ? "Edit" : "Add"}
                 />
-                
-                                                
+                                      
             </div>
         </div>
     );

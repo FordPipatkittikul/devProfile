@@ -26,3 +26,23 @@ export async function findProject(id) {
     const project = await Project.find({ userId:id });
     return project; 
 }
+
+export async function deleteProjectById(id) {
+    await connectDB();
+    const project = await Project.findByIdAndDelete(id);
+    return project
+}
+
+export async function updateProjectById(id, name, description) {
+    await connectDB();
+    const objectId = new mongoose.Types.ObjectId(id);
+    const updatedProject = await Project.findByIdAndUpdate(
+        objectId,
+        {
+            name, 
+            description,
+        },
+        { new: true, runValidators: true }
+    );
+    return updatedProject
+}

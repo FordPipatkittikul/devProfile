@@ -1,9 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { usePathname } from 'next/navigation';
 
 import { useAppContext } from "@/context/AppContext";
 import Loading from "../Loading";
@@ -11,6 +11,7 @@ import ProjectFormDrawer from "../drawer/ProjectFormDrawer";
 
 const Project = () => {
     const { currentProject, currentUser, updateProject, router } = useAppContext();
+    const pathname = usePathname();
     const [isEdit, setIsEdit] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading,setIsLoading] = useState(false);
@@ -58,6 +59,23 @@ const Project = () => {
             setIsLoading(false);
         }
     };
+
+    const deleteProject = async () => {
+        setIsLoading(true);
+        try{
+            const id = pathname.split("/").pop();
+            const res = await axios.delete(`/api/profile/project/${id}`)
+            if(res.data.success){
+                toast.success("Deleted project successfully");
+            }else {
+                toast.error("Could not delete project")
+            }
+        }catch(error){
+            console.log("Error deleting project:", error);
+        }finally{
+            setIsLoading(false);
+        }
+    }
 
     useEffect(() => {
     }, [currentProject]);
@@ -146,6 +164,7 @@ const Project = () => {
                     isOpen={isOpen}
                     closeMenu={closeMenu}
                     onSubmit={addProject}
+                    onDelete={deleteProject}
                     isLoading={isLoading}
                     formTitle={isEdit ? "Edit project" : "Add project"}
                     submitButtonLabel={isEdit ? "Edit" : "Add"}

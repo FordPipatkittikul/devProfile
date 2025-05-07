@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { usePathname } from 'next/navigation';
 
 import { useAppContext } from "@/context/AppContext";
 import EducationFormDrawer from "../drawer/EducationFormDrawer ";
 
 const Education = () => {
-    const { currentUser,currentEducation, updateEducation, router} = useAppContext();
+    const { currentUser, currentEducation, updateEducation, router} = useAppContext(); // current education for all education
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [isLoading,setIsLoading] = useState(false);
@@ -19,8 +21,8 @@ const Education = () => {
     };
 
     const toggleEditMenu = () => {
-        setIsOpen(!isOpen);
-        setIsEdit(!isOpen);
+        setIsOpen(true);
+        setIsEdit(true);
     };
 
     const toggleAddMenu = () => {
@@ -53,6 +55,7 @@ const Education = () => {
             if(res.data.success){
                 updateEducation(res.data.newEducation)
                 toast.success("Add education successfully");
+                closeMenu();
             }else {
                 toast.error("cannot add Education")
             }
@@ -62,6 +65,65 @@ const Education = () => {
             setIsLoading(false);
         }
 
+    };
+
+    const editEducation = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        const id = pathname.split("/").pop();
+        const education = new FormData(e.target)
+        const degree = education.get("degree")
+        const institute = education.get("institute")
+        const gpa = education.get("gpa")
+        const graduation = education.get("graduation")
+        const relatedCourseworks = education.get("relatedCourseWorks")
+
+        try{
+            const res = await axios.put(`/api/profile/education/${id}`,{
+                institute,
+                degree,
+                gpa,
+                relatedCourseworks,
+                graduation,
+            })
+            if(res.data.success){
+                toast.success("Edit education successfully");
+                closeMenu();
+            }else {
+                toast.error("cannot edit Education")
+            }
+        }catch(error){
+            console.log("Error in edit education:", error);
+        }finally{
+            setIsLoading(false);
+        }
+    }
+
+    const deleteEducation = async () => {
+        setIsLoading(true);
+        try{
+            const id = pathname.split("/").pop();
+            const res = await axios.delete(`/api/profile/education/${id}`)
+            if(res.data.success){
+                toast.success("Deleted education successfully");
+                closeMenu();
+            }else {
+                toast.error("Could not delete education")
+            }
+        }catch(error){
+            console.log("Error deleting education:", error);
+        }finally{
+            setIsLoading(false);
+        }
+    }
+
+    const handleSubmit = (e) => {
+        console.log("isEdit in handleSubmit:", isEdit)
+        if (isEdit) {
+            editEducation(e);
+        } else {
+            addEducation(e);
+        }
     };
 
     useEffect(() => {
@@ -90,10 +152,9 @@ const Education = () => {
                                 <div className="flex space-x-2">
                                     <button 
                                         className="p-2 text-blue-500 hover:text-blue-700 cursor-pointer"
-                                        onClick={() => {
+                                        onClick={ () => {
                                             toggleEditMenu();
                                             handleChangeUrl(edu?._id);
-                                            // You can call more functions here
                                         }}
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -121,10 +182,9 @@ const Education = () => {
                                 <div className="flex space-x-2">
                                     <button 
                                         className="p-2 text-blue-500 hover:text-blue-700"
-                                        onClick={() => {
+                                        onClick={ () => {
                                             toggleEditMenu();
-                                            handleChangeUrl(currentEducation?._id);
-                                            // You can call more functions here
+                                            handleChangeUrl(currentEducation?._id);                                   
                                         }}
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -157,7 +217,8 @@ const Education = () => {
                     isEdit={isEdit}
                     isOpen={isOpen}
                     closeMenu={closeMenu}
-                    onSubmit={addEducation}
+                    onSubmit={handleSubmit}
+                    onDelete={deleteEducation}
                     isLoading={isLoading}
                     formTitle={isEdit ? "Edit Education" : "Add Education"}
                     submitButtonLabel={isEdit ? "Edit" : "Add"}
