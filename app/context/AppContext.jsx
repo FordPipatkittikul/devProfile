@@ -25,6 +25,8 @@ export const AppContextProvider = (props) => {
     const [currentProject, setCurrentProject] = useState([]);
 
     const [developers, setDevelopers] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     const updateUser = (data) =>{
         setCurrentUser(data)
@@ -106,14 +108,23 @@ export const AppContextProvider = (props) => {
         }
     }
 
-    const fetchDevelopers = async () => {
+    /* 
+        If append is true:
+        → You combine the previous developers (prev) with the newly fetched ones (newDevs):
+        [...] is the spread syntax, so [...prev, ...newDevs] creates a new array containing all old and new developers.
+    */
+    const fetchDevelopers = async (page = 1, limit = 3, append = false) => {
         try {
-            const response = await axios.get(`/api/developers`);
-            setDevelopers(response.data.devsWithoutPass);
+            const response = await axios.get(`/api/developers?page=${page}&limit=${limit}`);
+            const newDevs = response.data.data;
+            setTotalPages(response.data.totalPages);
+            setCurrentPage(page);
+            setDevelopers(prev => append ? [...prev, ...newDevs] : newDevs);
         } catch (error) {
-            console.log("Error fetchUserInfo:", error);
+            console.log("Error fetching developers:", error);
         }
-    }
+    };
+    
 
     //✅ Load user from localStorage on client only
     useEffect(() => {
@@ -187,7 +198,7 @@ export const AppContextProvider = (props) => {
         currentUser, currentUserInfo, updateEducation,
         currentEducation,currentSkill, updateSkill,
         currentExperience,currentProject, updateExperience,
-        updateProject, developers
+        updateProject, developers, fetchDevelopers, currentPage, totalPages
     }
 
     if (!isClient) return null; // ✅ Don't render anything until mounted

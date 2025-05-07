@@ -13,7 +13,6 @@ const Header = ({ header, description, showLinks = true }) => {
                 {showLinks && ( // Render links only if showLinks is true
                     <div className="header-buttons">
                         <Link href="/developers" className="btn header-btn btn-white">Find Developers</Link>
-                        <Link href="/" className="btn header-btn btn-white">Create Profile</Link>
                     </div>
                 )}
             </div>
