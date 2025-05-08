@@ -16,7 +16,7 @@ const Skills = () => {
         e.preventDefault();
         setIsLoading(true);
         const formdata = new FormData(e.target)
-        const skill = formdata.get("skill")
+        const skill = formdata.get("skill").toLowerCase();
         try{
             const res = await axios.post(`/api/profile/skill/${currentUser._id}`, {
                 skills:skill

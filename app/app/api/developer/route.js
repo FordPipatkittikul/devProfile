@@ -4,6 +4,11 @@ import connectDB from '@/config/db';
 
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
+
+    const skill = searchParams.get("skill");
+    const careerInterest = searchParams.get("careerInterest");
+    const experience = parseInt(searchParams.get("experience"));
+
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "3");
     const skip = (page - 1) * limit;
@@ -11,7 +16,46 @@ export async function GET(req) {
     try {
         await connectDB();
         // Count total users for pagination metadata
-        const total = await User.countDocuments();
+        const totalResult = await User.aggregate([
+            {
+                $lookup: {
+                    from: "userInfo",
+                    localField: "_id",
+                    foreignField: "userId",
+                    as: "userInfo"
+                }
+            },
+            {
+                $lookup: {
+                    from: "skill",
+                    localField: "_id",
+                    foreignField: "userId",
+                    as: "skill"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$userInfo",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $unwind: {
+                    path: "$skill",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $match: {
+                    ...(skill ? { "skill.skills": skill } : {}),
+                    ...(careerInterest ? { "userInfo.careerInterest": careerInterest } : {}),
+                    ...(experience ? { "userInfo.yearsOfExperience": experience } : {})
+                }
+            },
+            { $count: "total" }
+        ]);
+        console.log(totalResult)
+        const total = totalResult[0]?.total || 0;
 
         const developers = await User.aggregate([
             {
@@ -64,6 +108,13 @@ export async function GET(req) {
                 $unwind: {
                     path: "$skill",
                     preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $match: {
+                    ...(skill ? { "skill.skills": skill } : {}),
+                    ...(careerInterest ? { "userInfo.careerInterest": careerInterest } : {}),
+                    ...(experience ? { "userInfo.yearsOfExperience": experience } : {})
                 }
             },
             { $skip: skip },

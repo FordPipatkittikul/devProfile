@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+
 import Devcard from "./Devcard";
 import { useAppContext } from "@/context/AppContext";
 

@@ -35,8 +35,13 @@ const Languages = () => {
                 toast.success("add new language successfully")
                 closeMenu()
             }
+
         }catch(error){
-            console.log("Error in adding Language", error);
+            if(error.response.data.message === "Invalid Credential"){
+                closeMenu()
+                toast.error("Update personal detail first")
+            }
+
         }finally{
             setIsLoading(false);
         }

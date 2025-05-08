@@ -20,14 +20,28 @@ const CareerInterest = () => {
         setIsOpen(false);
     };
 
+    function formatCareer(career) {
+        if (typeof career === 'string') {
+          return career.toLowerCase().replace(/\s+/g, '-');
+        } else if (career && career.get) {
+          const careerInterestValue = career.get("careerInterest");
+          if (typeof careerInterestValue === 'string') {
+            return careerInterestValue.toLowerCase().replace(/\s+/g, '-');
+          }
+        }
+        return null; // Or handle other cases as needed
+    }
+
     const addCareerInterest = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         const careerInterest = new FormData(e.target)
         const career = careerInterest.get("careerInterest")
+        const formattedCareer = formatCareer(career);
+
         try{
             const res = await axios.post(`/api/profile/careerInterest/${currentUser._id}`, {
-                careerInterest:career
+                careerInterest:formattedCareer
             })
             if(res.data.success){
                 updateUserInfo(res.data.newCareerInterest)
@@ -36,7 +50,11 @@ const CareerInterest = () => {
             }
             
         }catch(error){
-            console.log("Error in adding CareerInterest", error);
+            if(error.response.data.message === "Invalid Credential"){
+                closeMenu()
+                toast.error("Update personal detail first")
+            }
+            
         }finally{
             setIsLoading(false);
         }
@@ -125,7 +143,7 @@ const CareerInterest = () => {
                                     <label className="block text-xl font-medium mb-1">
                                         Career
                                     </label>
-                                    <p className="text-gray-500 text-sm mb-2">Example: fullstack dev</p>
+                                    <p className="text-gray-500 text-sm mb-2">Example: frontend-developer, machine-learning-engineer, full-stack-developer</p>
                                     <input
                                         type="text"
                                         name="careerInterest"

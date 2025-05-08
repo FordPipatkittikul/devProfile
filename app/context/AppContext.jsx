@@ -124,6 +124,33 @@ export const AppContextProvider = (props) => {
             console.log("Error fetching developers:", error);
         }
     };
+
+    const filterDevelopers = async ({
+        page = 1,
+        limit = 3,
+        append = false,
+        skill,
+        experience,
+        careerInterest
+    } = {}) => {
+        try {
+            const params = new URLSearchParams({ page, limit });
+    
+            if (skill) params.append("skill", skill);
+            if (experience) params.append("experience", experience);
+            if (careerInterest) params.append("careerInterest", careerInterest);
+    
+            const response = await axios.get(`/api/developer?${params.toString()}`);
+            const newDevs = response.data.data;
+    
+            setTotalPages(response.data.totalPages);
+            setCurrentPage(page);
+            setDevelopers(prev => append ? [...prev, ...newDevs] : newDevs);
+        } catch (error) {
+            console.log("Error filtering developers:", error);
+        }
+    };
+    
     
 
     //✅ Load user from localStorage on client only
@@ -198,7 +225,8 @@ export const AppContextProvider = (props) => {
         currentUser, currentUserInfo, updateEducation,
         currentEducation,currentSkill, updateSkill,
         currentExperience,currentProject, updateExperience,
-        updateProject, developers, fetchDevelopers, currentPage, totalPages
+        updateProject, developers, fetchDevelopers, currentPage, totalPages,
+        filterDevelopers
     }
 
     if (!isClient) return null; // ✅ Don't render anything until mounted

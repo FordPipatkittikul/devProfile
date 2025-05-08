@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { AppContextProvider } from "@/context/AppContext";
+import Script from "next/script";
 
 import "./globals.css";
 
@@ -22,7 +23,18 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en"> 
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-DCQ1Q8TG9N"></Script>
+      <Script id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || []
+          function gtag(){
+            dataLayer.push(arguments)
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-DCQ1Q8TG9N');
+        `}
+      </Script>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Toaster />
         <AppContextProvider>
